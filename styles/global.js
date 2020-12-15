@@ -22,6 +22,12 @@ const globalStyles = StyleSheet.create({
         marginBottom: 20,
         fontSize: 30
     },
+    subtitulo: {
+        textAlign: 'center',
+        marginTop: 40,
+        marginBottom: 20,
+        fontSize: 20
+    },
     imagen: {
         height: 300,
         width: '100%'

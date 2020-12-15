@@ -10,12 +10,18 @@ import DetallePlatillo from './views/DetallePlatillo';
 import FormularioPlatillo from './views/FormularioPlatillo';
 import ResumenPedido from './views/ResumenPedido';
 import ProgresoPedido from './views/ProgresoPedido';
+import Principal from './views/Principal';
+
+// vista meseros
+import MenuMeseros from './views/meseros/MenuMeseros';
+
 
 import FormularioReserva from './views/FormularioReserva';
 import ResumenReserva from './views/ResumenReserva';
 
 // Components
 import BotonResumen from './components/ui/BotonResumen';
+import BotonLogin from './components/ui/BotonLogin';
 
 //Login
 import Login from './components/Login';
@@ -32,6 +38,7 @@ import ReservaState from './context/reservas/reservasState';
 const Stack = createStackNavigator();
 
 const App = () => {
+
   return (
     <>
       <FirebaseState>
@@ -50,36 +57,31 @@ const App = () => {
                     headerTintColor: '#000'
                   }}
                 >
-                  
                   <Stack.Screen
-                    name="Login"
-                    component={Login}
-                    options={{
-                      title: "Login"
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Register"
-                    component={Register}
-                    options={{
-                      title: "Register"
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Logout"
-                    component={Logout}
-                    options={{
-                      title: "Logout"
-                    }}
-                  />
+                        name="Principal"
+                        component={Principal}
+                        options={{
+                          title: "Principal"
+                        }}
+                      />
                   <Stack.Screen
                     name="NuevaOrden"
                     component={NuevaOrden}
                     options={{
-                      title: "Campiña Lojana"
+                      title: "Campiña Lojana",
+                      headerRight: props => <BotonLogin />
                     }}
+                    
                   />
 
+                  <Stack.Screen
+                    name="MenuMeseros"
+                    component={MenuMeseros}
+                    options={{
+                      title: "Nuestro Menú",
+                      headerRight: props => <BotonLogin />
+                    }}
+                  />
                   <Stack.Screen
                     name="Menu"
                     component={Menu}
@@ -103,6 +105,28 @@ const App = () => {
                     component={DetallePlatillo}
                     options={{
                       title: "Detalle Platillo"
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{
+                      title: "Login"
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Register"
+                    component={Register}
+                    options={{
+                      title: "Register"
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Logout"
+                    component={Logout}
+                    options={{
+                      title: "Logout"
                     }}
                   />
 

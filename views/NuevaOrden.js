@@ -15,14 +15,6 @@ const NuevaOrden = () => {
                     style={globalStyles.boton}
                     rounded
                     block
-                    onPress={ () => navigation.navigate('Logout')  }
-                >
-                    <Text style={globalStyles.botonTexto}>Inicio</Text>
-                </Button>
-                <Button
-                    style={globalStyles.boton}
-                    rounded
-                    block
                     onPress={ () => navigation.navigate('Menu')  }
                 >
                     <Text style={globalStyles.botonTexto}>Crear Nueva Orden</Text>

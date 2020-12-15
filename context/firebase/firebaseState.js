@@ -23,7 +23,7 @@ const FirebaseState = props => {
 
         // consultar firebase
         firebase.db
-            .collection('productos')
+            .collection('platos')
             .where('existencia', '==', true) // traer solo los que esten en existencia
             .onSnapshot(manejarSnapshot);
 

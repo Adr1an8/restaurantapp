@@ -20,7 +20,7 @@ const Logout = (props) => {
         await firebase.user.signOut()
             .then((res) => alert('A salido correctamente'));
 
-        navigation.navigate("Login");
+        navigation.navigate("Principal");
 
     }
 
@@ -43,7 +43,7 @@ const Logout = (props) => {
                     style={globalStyles.boton}
                     rounded
                     block
-                    onPress={() => navigation.navigate('NuevaOrden')}
+                    onPress={() => navigation.navigate('Principal')}
                 >
                     <Text style={globalStyles.botonTexto}>Regresar</Text>
                 </Button>

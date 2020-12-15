@@ -33,30 +33,9 @@ const ResumenReserva = () => {
         <Container style={globalStyles.contenedor}>
             <Content style={{ backgroundColor: '#FFF' }}>
                 <List>
-                    {reserva.map( (reservacion, i) => {
-                        const { nombre, correo, phone, datetime, details} = reservacion;
-                        return (
+                    {reserva.map( reservas => {
+                        console.log(reservas)
 
-                                <ListItem>
-                                    <Body>
-                                        <Text>{nombre} </Text>
-                                        <Text 
-                                            note
-                                            numberOfLines={2}
-                                        >
-                                            {correo}
-                                        </Text>
-                                        <Text>{phone} </Text>
-                                        <Text>{datetime} </Text>
-                                        <Text 
-                                            note
-                                            numberOfLines={4}
-                                        >
-                                            {details}
-                                        </Text>
-                                    </Body>
-                                </ListItem>
-                        )
                     })}
                 </List>
             </Content>

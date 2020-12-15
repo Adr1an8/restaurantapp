@@ -109,77 +109,97 @@ const FormularioReserva = () => {
             ]
         )
     }
-
-    return (
-        <Container style={globalStyles.contenedor}>
-            <Content style={globalStyles.contenido}>
-                <H1 style={globalStyles.titulo}>Formulario Reserva</H1>
-                <TextInput
-                    placeholder="Name"
-                    onChangeText={(value) => handleChangeText(value, "name")}
-                    value={state.name}
-                />
-                <TextInput
-                    placeholder="Email"
-                    onChangeText={(value) => handleChangeText(value, "email")}
-                    value={state.email}
-                />
-                <TextInput
-                    placeholder="phone"
-                    onChangeText={(value) => handleChangeText(value, "phone")}
-                    value={state.phone}
-                />
-                <TextInput
-                    placeholder="personas"
-                    onChangeText={(value) => handleChangeText(value, "personas")}
-                    value={state.personas}
-                />
-
-                {/* Datetime */}
-
-                <View style={{ marginTop: 100 }}>
-                    <TouchableOpacity onPress={showDatepicker}>
-                        <Text style={{ fontSize: 50 }}>{formatDate(date, time)}</Text>
-                    </TouchableOpacity>
-                    {show && (
-                        <DateTimePicker
-                            testID='dateTimePicker'
-                            timeZoneOffsetInMinutes={0}
-                            value={date}
-                            mode={mode}
-                            is24Hour={true}
-                            display='default'
-                            onChange={onChange}
-                        />
-                    )}
-                </View>
-
-                <TextInput
-                    placeholder="Comentarios adicionales"
-                    multiline
-                    numberOfLines={4}
-                    onChangeText={(value) => handleChangeText(value, "detail")}
-                    value={state.detail}
-                />
-
-                <Button
-                    onPress={() => progresoPedido()}
-                    style={{ marginTop: 30 }}
-                    full
-                    dark
-                >
-                    <Text style={[globalStyles.botonTexto, { color: '#FFF' }]}>Confirmar</Text>
-                </Button>
-                <Button
-                        onPress={() => navigation.navigate('NuevaOrden')}
-                        style={[globalStyles.boton]}
+    if (firebase.user.currentUser){
+        return (
+            <Container style={globalStyles.contenedor}>
+                <Content style={globalStyles.contenido}>
+                    <H1 style={globalStyles.titulo}>Formulario Reserva</H1>
+                    <TextInput
+                        placeholder="Name"
+                        onChangeText={(value) => handleChangeText(value, "name")}
+                        value={state.name}
+                    />
+                    <TextInput
+                        placeholder="Email"
+                        onChangeText={(value) => handleChangeText(value, "email")}
+                        value={state.email}
+                    />
+                    <TextInput
+                        placeholder="phone"
+                        onChangeText={(value) => handleChangeText(value, "phone")}
+                        value={state.phone}
+                    />
+                    <TextInput
+                        placeholder="personas"
+                        onChangeText={(value) => handleChangeText(value, "personas")}
+                        value={state.personas}
+                    />
+    
+                    {/* Datetime */}
+    
+                    <View style={{ marginTop: 100 }}>
+                        <TouchableOpacity onPress={showDatepicker}>
+                            <Text style={{ fontSize: 50 }}>{formatDate(date, time)}</Text>
+                        </TouchableOpacity>
+                        {show && (
+                            <DateTimePicker
+                                testID='dateTimePicker'
+                                timeZoneOffsetInMinutes={0}
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display='default'
+                                onChange={onChange}
+                            />
+                        )}
+                    </View>
+    
+                    <TextInput
+                        placeholder="Comentarios adicionales"
+                        multiline
+                        numberOfLines={4}
+                        onChangeText={(value) => handleChangeText(value, "detail")}
+                        value={state.detail}
+                    />
+    
+                    <Button
+                        onPress={() => progresoPedido()}
+                        style={{ marginTop: 30 }}
                         full
+                        dark
                     >
-                        <Text style={globalStyles.botonTexto}>Cancelar</Text>
+                        <Text style={[globalStyles.botonTexto, { color: '#FFF' }]}>Confirmar</Text>
                     </Button>
-            </Content>
+                    <Button
+                            onPress={() => navigation.navigate('NuevaOrden')}
+                            style={[globalStyles.boton]}
+                            full
+                        >
+                            <Text style={globalStyles.botonTexto}>Cancelar</Text>
+                        </Button>
+                </Content>
+            </Container>
+        );
+    }
+    else{
+        return(
+            <Container style={globalStyles.contenedor}>
+            <View style={globalStyles.contenido}>
+                <Text style={[globalStyles.subtitulo]}>Para realizar una reserva debe iniciar sesión</Text>
+                <Button
+                    style={globalStyles.boton}
+                    rounded
+                    block
+                    onPress={ () => navigation.navigate('Login')  }
+                >
+                    <Text style={globalStyles.botonTexto}>Login</Text>
+                </Button>
+            </View>
         </Container>
-    );
+        )
+    }
+
+    
 }
 
 const formatDate = (date, time) => {

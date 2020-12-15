@@ -35,7 +35,7 @@ const FireReservaState = props => {
             });
 
             // Ordenar por categoria con lodash
-            reservas = _.sortBy(reservas, 'categoria');
+            // reservas = _.sortBy(reservas, 'categoria');
 
             // console.log(platillos)
 

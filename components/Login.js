@@ -18,16 +18,20 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
 
     const navigation = useNavigation();
-
     const login = async () => {
         await firebase.user.signInWithEmailAndPassword(email,password)
         .then(function(res) {
             alert('Ingresado Correctamente');
-            navigation.navigate("NuevaOrden");
+            if(email === "aguchoshinta@live.com"){
+                navigation.navigate("MenuMeseros");
+            }else{
+                navigation.navigate("NuevaOrden");
+            }
+            
+            
         })
         .catch((res) => alert('Usuario no encontrado'));
         
-
     }
 
     // var userLog;
