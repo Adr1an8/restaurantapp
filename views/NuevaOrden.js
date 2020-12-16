@@ -12,7 +12,7 @@ const NuevaOrden = () => {
         <Container style={globalStyles.contenedor}>
             <View style={[globalStyles.contenido, styles.contenido]}>
                 <Button
-                    style={globalStyles.boton}
+                    style={[globalStyles.boton,styles.separadorTexto]}
                     rounded
                     block
                     onPress={ () => navigation.navigate('Menu')  }
@@ -20,10 +20,10 @@ const NuevaOrden = () => {
                     <Text style={globalStyles.botonTexto}>Crear Nueva Orden</Text>
                 </Button>
                 <Button
-                    style={globalStyles.boton}
+                    style={[globalStyles.boton,styles.separadorTexto]}
                     rounded
                     block
-                    onPress={ () => navigation.navigate('FormularioReserva')  }
+                    onPress={ () => navigation.navigate('InicioReserva')  }
                 >
                     <Text style={globalStyles.botonTexto}>Reservas</Text>
                 </Button>
@@ -36,6 +36,9 @@ const styles = StyleSheet.create({
     contenido: {
         flexDirection: 'column',
         justifyContent: 'center'
+    },
+    separadorTexto: {
+        marginTop: 10
     }
 })
  

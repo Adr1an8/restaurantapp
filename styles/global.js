@@ -37,6 +37,12 @@ const globalStyles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 24,
         fontWeight: 'bold'
+    },
+    reservaDetalle: {
+        textAlign: 'center',
+        marginTop: 10,
+        marginBottom: 10,
+        fontSize: 10
     }
 })
 

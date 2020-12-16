@@ -15,9 +15,10 @@ import Principal from './views/Principal';
 // vista meseros
 import MenuMeseros from './views/meseros/MenuMeseros';
 
-
-import FormularioReserva from './views/FormularioReserva';
-import ResumenReserva from './views/ResumenReserva';
+//reservas
+import InicioReserva from './views/reservas/InicioReserva';
+import FormularioReserva from './views/reservas/FormularioReserva';
+import ResumenReserva from './views/reservas/ResumenReserva';
 
 // Components
 import BotonResumen from './components/ui/BotonResumen';
@@ -88,6 +89,15 @@ const App = () => {
                     options={{
                       title: "Nuestro Menú",
                       headerRight: props => <BotonResumen />
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="InicioReserva"
+                    component={InicioReserva}
+                    options={{
+                      title: "Reservaciones",
+                      //headerRight: props => <BotonResumen />
                     }}
                   />
 
