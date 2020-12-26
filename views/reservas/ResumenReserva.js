@@ -25,7 +25,7 @@ const ResumenReserva = (props) => {
     const navigation = useNavigation();
 
     // context de pedido
-    const { reservaRealizada } = useContext(ReservaContext);
+    const { reservaRealizada, mostrarResumen } = useContext(ReservaContext);
 
      const progresoPedido = () => {
          Alert.alert(
@@ -37,10 +37,9 @@ const ResumenReserva = (props) => {
                      onPress: async () => {
 
                          try {
-                             const reserva = await firebase.db.collection('reservas').add(props.route.params.saveReserva);
-                             reservaRealizada(reserva.id);
-
-                             console.log(reservaRealizada);
+                            const reserva = await firebase.db.collection('reservas').add(props.route.params.saveReserva);
+                            reservaRealizada(reserva.id);
+                            mostrarResumen(props.route.params.saveReserva);
 
                              // redireccionar a progreso
                              navigation.navigate("NuevaOrden")
@@ -54,16 +53,7 @@ const ResumenReserva = (props) => {
              ]
          )
      }
-     if(typeof props.route.params.saveReserva === 'undefined'){
-        return ( 
-            <Container style={globalStyles.contenedor}>
-                <Content style={{ backgroundColor: '#FFF' }}>
-                    <Text style={globalStyles.titulo}>Resumen Reserva</Text>
-                    <Text style={globalStyles.subtitulo}>No Existen Reservas</Text>
-                </Content>
-            </Container>
-         );
-     }
+
      return ( 
         <Container style={globalStyles.contenedor}>
             <Content style={{ backgroundColor: '#FFF' }}>

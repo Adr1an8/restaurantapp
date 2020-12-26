@@ -28,7 +28,7 @@ const InicioReserva = (props) => {
                         <Text style={globalStyles.botonTexto}>Hacer una reserva</Text>
                     </Button>
                     <Button
-                        onPress={() => navigation.navigate('ResumenReserva')}
+                        onPress={() => navigation.navigate('ConsultaReserva')}
                         style={[globalStyles.boton, styles.separadorTexto]}
                         full
                     >

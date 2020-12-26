@@ -32,10 +32,10 @@ const ReservaState = props => {
     }
 
     // Muestra el total a pagar en el resumen
-    const mostrarResumen = () => {
+    const mostrarResumen = reservacion => {
         dispatch({
             type: MOSTRAR_RESUMEN,
-            payload: id
+            payload: reservacion
         })
     }
 

@@ -15,12 +15,11 @@ export default (state,action) => {
         case MOSTRAR_RESUMEN:
             return {
                 ...state,
-                idreserva: action.payload
+                reservacion: action.payload
             }
         case RESERVA_REALIZADA:
             return {
                 ...state,
-                reserva: [],
                 idreserva: action.payload
             }
         default:

@@ -76,7 +76,9 @@ const FormularioReserva = (props) => {
             personas: state.personas,
             datetime: reservDate,
             datetimenow: nowDate,
-            detail: state.detail
+            detail: state.detail,
+            activo: true,
+            cancelado: false
         }
     // try {
     //     const reserva = await firebase.db.collection('reservas').add(reservaObj);

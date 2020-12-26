@@ -15,10 +15,11 @@ import Principal from './views/Principal';
 // vista meseros
 import MenuMeseros from './views/meseros/MenuMeseros';
 
-//reservas
+//reservas 
 import InicioReserva from './views/reservas/InicioReserva';
 import FormularioReserva from './views/reservas/FormularioReserva';
 import ResumenReserva from './views/reservas/ResumenReserva';
+import ConsultaReserva from './views/reservas/ConsultaReserva';
 
 // Components
 import BotonResumen from './components/ui/BotonResumen';
@@ -34,6 +35,7 @@ import FirebaseState from './context/firebase/firebaseState';
 import FireReservaState from './context/fireReserva/fireReservaState';
 import PedidoState from './context/pedidos/pedidosState';
 import ReservaState from './context/reservas/reservasState';
+import UserState from './context/user/userState';
 
 
 const Stack = createStackNavigator();
@@ -46,6 +48,7 @@ const App = () => {
         <FireReservaState>
           <ReservaState>
             <PedidoState>
+              <UserState>
               <NavigationContainer>
                 <Stack.Navigator
                   screenOptions={{
@@ -106,6 +109,15 @@ const App = () => {
                     component={FormularioReserva}
                     options={{
                       title: "Formulario Reserva",
+                      //headerRight: props => <BotonResumen />
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="ConsultaReserva"
+                    component={ConsultaReserva}
+                    options={{
+                      title: "Consulta Reserva",
                       //headerRight: props => <BotonResumen />
                     }}
                   />
@@ -173,6 +185,7 @@ const App = () => {
 
                 </Stack.Navigator>
               </NavigationContainer>
+              </UserState>
             </PedidoState>
           </ReservaState>
         </FireReservaState>
