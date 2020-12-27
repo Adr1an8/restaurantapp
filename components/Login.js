@@ -23,7 +23,6 @@ const Login = (props) => {
 
     useEffect(() => {
         obtenerUsuarios();
-        console.log(user);
     }, []);
 
     const CorreoUsuarios = user.map((usuario) =>{
@@ -31,13 +30,12 @@ const Login = (props) => {
         return correo;
     });
 
-    console.log(CorreoUsuarios);
-
     const login = async () => {
         await firebase.user.signInWithEmailAndPassword(email,password)
         .then(function(res) {
             alert('Ingresado Correctamente');
-            if(usuario){
+
+            if(CorreoUsuarios.includes(email)){
                 navigation.navigate("MenuMeseros");
             }else{
                 navigation.navigate("NuevaOrden");
