@@ -23,7 +23,8 @@ const UserState = props => {
 
         // consultar firebase
         firebase.db
-            .collection('user')
+            .collection('usuarios')
+            .where('rol','==','Mesero')
             .onSnapshot(manejarSnapshot);
 
         function manejarSnapshot(snapshot) {
@@ -33,8 +34,6 @@ const UserState = props => {
                     ...doc.data()
                 }
             });
-
-            // console.log(usuarios)
 
             // Tenemos resultados de la base de datos
             dispatch({

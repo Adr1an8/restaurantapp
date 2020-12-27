@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import {
     Text,
     View,
@@ -9,20 +9,35 @@ import {
 
 import firebase from './../firebase';
 
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation } from '@react-navigation/native';
 
-
+import  UserContext from '../context/user/userContext';
 
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const navigation = useNavigation();
+    
+    const { user, obtenerUsuarios } = useContext(UserContext);
+
+    useEffect(() => {
+        obtenerUsuarios();
+        console.log(user);
+    }, []);
+
+    const CorreoUsuarios = user.map((usuario) =>{
+        const correo  = usuario.correo;
+        return correo;
+    });
+
+    console.log(CorreoUsuarios);
+
     const login = async () => {
         await firebase.user.signInWithEmailAndPassword(email,password)
         .then(function(res) {
             alert('Ingresado Correctamente');
-            if(email === "aguchoshinta@live.com"){
+            if(usuario){
                 navigation.navigate("MenuMeseros");
             }else{
                 navigation.navigate("NuevaOrden");

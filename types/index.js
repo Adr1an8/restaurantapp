@@ -18,3 +18,5 @@ export const RESERVA_REALIZADA = 'RESERVA_REALIZADA';
 
 //state para usuarios
 export const OBTENER_USUARIOS_EXITO = 'OBTENER_USUARIOS_EXITO';
+export const OBTENER_ROL_EXITO = 'OBTENER_ROL_EXITO';
+
