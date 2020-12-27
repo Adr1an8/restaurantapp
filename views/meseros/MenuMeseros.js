@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, Fragment } from 'react';
 import { StyleSheet } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 import {
     Container,
     Separator,
@@ -8,13 +9,12 @@ import {
     ListItem,
     Thumbnail,
     Text,
-    Body,
-    Button
+    Body
 } from 'native-base';
 import globalStyles from '../../styles/global';
 
 import  FirebaseContext from '../../context/firebase/firebaseContext';
-// import PedidoContext from '../context/pedidos/pedidosContext';
+import PedidoContext from '../../context/pedidos/pedidosContext';
 
 
 const MenuMeseros = () => {
@@ -23,10 +23,10 @@ const MenuMeseros = () => {
     const { menu, obtenerProductos } = useContext(FirebaseContext);
 
     // Context de pedido
-    // const { seleccionarPlatillo } = useContext(PedidoContext);
+    const { seleccionarPlatillo } = useContext(PedidoContext);
 
     // Hook para redireccionar
-    // const navigation = useNavigation();
+    const navigation = useNavigation();
 
     useEffect(() => {
         obtenerProductos();
@@ -60,7 +60,16 @@ const MenuMeseros = () => {
                         return (
                             <Fragment key={id}>
                                 {mostrarHeading(categoria, i ) }
-                                <ListItem>
+                                <ListItem
+                                    onPress={ () => {
+
+                                        // Eliminar algunas propiedades del platillo
+                                        const { existencia, ...platillo2 } = platillo;
+
+                                        seleccionarPlatillo(platillo2);
+                                        navigation.navigate("DetallePlatillo");
+                                    }}
+                                >
                                     <Thumbnail 
                                         large 
                                         square  

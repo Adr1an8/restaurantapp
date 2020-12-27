@@ -36,7 +36,7 @@ const Login = (props) => {
             alert('Ingresado Correctamente');
 
             if(CorreoUsuarios.includes(email)){
-                navigation.navigate("MenuMeseros");
+                navigation.navigate("InicioMeseros");
             }else{
                 navigation.navigate("NuevaOrden");
             }

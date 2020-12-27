@@ -12,8 +12,10 @@ import ResumenPedido from './views/ResumenPedido';
 import ProgresoPedido from './views/ProgresoPedido';
 import Principal from './views/Principal';
 
-// vista meseros
+// vista meseros 
 import MenuMeseros from './views/meseros/MenuMeseros';
+import VerOrdenesMeseros from './views/meseros/VerOrdenesMeseros';
+import InicioMeseros from './views/meseros/InicioMeseros';
 
 //reservas 
 import InicioReserva from './views/reservas/InicioReserva';
@@ -33,6 +35,7 @@ import Logout from './components/Logout';
 // importar state de context
 import FirebaseState from './context/firebase/firebaseState';
 import FireReservaState from './context/fireReserva/fireReservaState';
+import FireMeseroState from './context/fireMeseros/fireMeseroState';
 import PedidoState from './context/pedidos/pedidosState';
 import ReservaState from './context/reservas/reservasState';
 import UserState from './context/user/userState';
@@ -46,6 +49,7 @@ const App = () => {
     <>
       <FirebaseState>
         <FireReservaState>
+          <FireMeseroState>
           <ReservaState>
             <PedidoState>
               <UserState>
@@ -77,15 +81,32 @@ const App = () => {
                     }}
                     
                   />
+                  
+                  <Stack.Screen
+                    name="InicioMeseros"
+                    component={InicioMeseros}
+                    options={{
+                      title: "Inicio",
+                      headerRight: props => <BotonLogin />
+                    }}
+                  />
 
                   <Stack.Screen
                     name="MenuMeseros"
                     component={MenuMeseros}
                     options={{
                       title: "Nuestro Menú",
-                      headerRight: props => <BotonLogin />
                     }}
                   />
+
+                  <Stack.Screen
+                    name="VerOrdenesMeseros"
+                    component={VerOrdenesMeseros}
+                    options={{
+                      title: "Ordenes",
+                    }}
+                  />
+
                   <Stack.Screen
                     name="Menu"
                     component={Menu}
@@ -188,6 +209,7 @@ const App = () => {
               </UserState>
             </PedidoState>
           </ReservaState>
+          </FireMeseroState>
         </FireReservaState>
       </FirebaseState>
     </>

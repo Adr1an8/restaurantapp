@@ -5,7 +5,6 @@ import UserReducer from './userReducer';
 import UserContext from './userContext';
 
 import { OBTENER_USUARIOS_EXITO } from '../../types';
-import _ from 'lodash';
 
 const UserState = props => {
 
