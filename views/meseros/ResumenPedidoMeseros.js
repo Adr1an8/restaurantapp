@@ -15,10 +15,10 @@ import {
     FooterTab
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native'
-import globalStyles from '../styles/global';
-import firebase from '../firebase';
+import globalStyles from '../../styles/global';
+import firebase from '../../firebase';
 
-import PedidoContext from '../context/pedidos/pedidosContext';
+import PedidoContext from '../../context/pedidos/pedidosContext';
 
 const ResumenPedido = () => {
 
@@ -74,7 +74,7 @@ const ResumenPedido = () => {
                             pedidoRealizado(pedido.id);
 
                             // redireccionar a progreso
-                            navigation.navigate("ProgresoPedido")
+                            navigation.navigate("ProgresoPedidoMeseros")
                         } catch (error) {
                             console.log(error);
                         }
@@ -148,7 +148,7 @@ const ResumenPedido = () => {
                     value={state.mesa}
                 />
                 <Button
-                    onPress={ () => navigation.navigate('Menu') }
+                    onPress={ () => navigation.navigate('MenuMeseros') }
                     style={ {marginTop: 30}}
                     full
                     dark

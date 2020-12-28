@@ -16,6 +16,10 @@ import Principal from './views/Principal';
 import MenuMeseros from './views/meseros/MenuMeseros';
 import VerOrdenesMeseros from './views/meseros/VerOrdenesMeseros';
 import InicioMeseros from './views/meseros/InicioMeseros';
+import DetallePlatilloMeseros from './views/meseros/DetallePlatilloMeseros';
+import FormularioPlatilloMeseros from './views/meseros/FormularioPlatilloMeseros';
+import ProgresoPedidoMeseros from './views/meseros/ProgresoPedidoMeseros';
+import ResumenPedidoMeseros from './views/meseros/ResumenPedidoMeseros';
 
 //reservas 
 import InicioReserva from './views/reservas/InicioReserva';
@@ -25,6 +29,7 @@ import ConsultaReserva from './views/reservas/ConsultaReserva';
 
 // Components
 import BotonResumen from './components/ui/BotonResumen';
+import BotonResumenMeseros from './components/ui/BotonResumenMeseros';
 import BotonLogin from './components/ui/BotonLogin';
 
 //Login
@@ -96,6 +101,39 @@ const App = () => {
                     component={MenuMeseros}
                     options={{
                       title: "Nuestro Menú",
+                      headerRight: props => <BotonResumenMeseros />
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="DetallePlatilloMeseros"
+                    component={DetallePlatilloMeseros}
+                    options={{
+                      title: "Detalle Platillo",
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="FormularioPlatilloMeseros"
+                    component={FormularioPlatilloMeseros}
+                    options={{
+                      title: "Formulario",
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="ProgresoPedidoMeseros"
+                    component={ProgresoPedidoMeseros}
+                    options={{
+                      title: "Progreso",
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="ResumenPedidoMeseros"
+                    component={ResumenPedidoMeseros}
+                    options={{
+                      title: "Resumen",
                     }}
                   />
 

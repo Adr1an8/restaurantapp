@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
     Container,
     Text,
@@ -10,33 +10,53 @@ import { useNavigation } from '@react-navigation/native'
 import globalStyles from '../../styles/global';
 import firebase from '../../firebase';
 
+import ReservaContext from '../../context/reservas/reservasContext';
 
-const InicioReserva = (props) => {
+const InicioReserva = () => {
+
+    const { reservacion } = useContext(ReservaContext);
 
     const navigation = useNavigation();
     
     if (firebase.user.currentUser){
-        return (
+        if(!reservacion){
+            return (
             
-            <Container style={globalStyles.contenedor}>
-                <View style={[globalStyles.contenido, styles.contenido]}>
-                    <Button
-                        onPress={() => navigation.navigate('FormularioReserva')}
-                        style={[globalStyles.boton, styles.separadorTexto]}
-                        full
-                    >
-                        <Text style={globalStyles.botonTexto}>Hacer una reserva</Text>
-                    </Button>
-                    <Button
-                        onPress={() => navigation.navigate('ConsultaReserva')}
-                        style={[globalStyles.boton, styles.separadorTexto]}
-                        full
-                    >
-                        <Text style={globalStyles.botonTexto}>Ver Reserva</Text>
-                    </Button>     
-                </View>
-            </Container>
-        );
+                <Container style={globalStyles.contenedor}>
+                    <View style={[globalStyles.contenido, styles.contenido]}>
+                        <Button
+                            onPress={() => navigation.navigate('FormularioReserva')}
+                            style={[globalStyles.boton, styles.separadorTexto]}
+                            full
+                        >
+                            <Text style={globalStyles.botonTexto}>Hacer una reserva</Text>
+                        </Button>
+                        <Button
+                            onPress={() => navigation.navigate('ConsultaReserva')}
+                            style={[globalStyles.boton, styles.separadorTexto]}
+                            full
+                        >
+                            <Text style={globalStyles.botonTexto}>Ver Reserva</Text>
+                        </Button>     
+                    </View>
+                </Container>
+            )    
+        }else{
+            return (
+            
+                <Container style={globalStyles.contenedor}>
+                    <View style={[globalStyles.contenido, styles.contenido]}>
+                        <Button
+                            onPress={() => navigation.navigate('ConsultaReserva')}
+                            style={[globalStyles.boton, styles.separadorTexto]}
+                            full
+                        >
+                            <Text style={globalStyles.botonTexto}>Ver Reserva</Text>
+                        </Button>     
+                    </View>
+                </Container>
+            );
+        }
     }
     else{
         return(
