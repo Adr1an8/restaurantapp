@@ -63,6 +63,7 @@ const ResumenPedido = () => {
                         const pedidoObj = {
                             tiempoentrega: 0,
                             completado: false,
+                            cancelado: false,
                             total: Number(total),
                             orden: pedido, // array
                             creado: Date.now(),

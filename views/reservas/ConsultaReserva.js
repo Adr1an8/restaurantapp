@@ -1,5 +1,5 @@
 import React, { useContext} from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -21,9 +21,12 @@ import globalStyles from '../../styles/global';
 
 import ReservaContext from '../../context/reservas/reservasContext';
 
+import firebase from '../../firebase';
+
 const ConsultaReserva = () => {
 
-    const { reservacion } = useContext(ReservaContext);
+    //Context guardado
+    const { reservacion, idreserva, mostrarResumen } = useContext(ReservaContext);
 
     // Hook para redireccionar
     const navigation = useNavigation()
@@ -31,6 +34,33 @@ const ConsultaReserva = () => {
     if ( reservacion === null){
         return(
             <Text style={globalStyles.titulo}>No tiene una reservacion</Text>
+        )
+    }
+
+    // Elimina un producto del arreglo de pedido
+    const confirmarEliminacion = () => {
+        Alert.alert(
+            'Desea eliminar la reserva',
+            'Una vez eliminada, no se prodra recuperar',
+            [
+                {
+                    text: 'Confirmar',
+                    onPress: async () => {
+
+                        try {
+                            await firebase.db.collection('reservas').doc(idreserva).delete();
+                            mostrarResumen(null);
+
+                            // redireccionar a progreso
+                            navigation.navigate("NuevaOrden")
+                        } catch (error) {
+                            console.log(error);
+                        }
+                      
+                    }
+                }, 
+                { text: 'Revisar', style: 'cancel'}
+            ]
         )
     }
 
@@ -76,11 +106,12 @@ const ConsultaReserva = () => {
                         <Text style={globalStyles.botonTexto}>Editar</Text>
                     </Button>
                     <Button
-                        // onPress={ () => progresoPedido() }
-                        style={[globalStyles.boton, styles.separadorTexto ]}
+                        onPress={ () => confirmarEliminacion(idreserva.id) }
                         full
+                        danger
+                        style={{marginTop: 20}}
                     >
-                        <Text style={globalStyles.botonTexto}>Eliminar</Text>
+                        <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Eliminar</Text>
                     </Button>
             </Content>
             <Footer>

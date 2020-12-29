@@ -84,7 +84,6 @@ const FormularioReserva = (props) => {
             datetimenow: nowDate,
             detail: state.detail,
             activo: true,
-            cancelado: false
         }
 
         if(reservaObj.nombre && validate(reservaObj.email) && reservaObj.phone && reservaObj.personas){
