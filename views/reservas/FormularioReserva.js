@@ -64,7 +64,7 @@ const FormularioReserva = (props) => {
     };
 
     // redirecciona a Progreso pedido
-    const progresoPedido = () => {
+    const progresoReserva = () => {
 
         const reservDate = formatDate(date,time);
         const nowDate = moment().format('MMMM Do YYYY, h:mm:ss a');
@@ -171,7 +171,7 @@ const FormularioReserva = (props) => {
                 />
 
                 <Button
-                    onPress={() => progresoPedido()}
+                    onPress={() => progresoReserva()}
                     style={{ marginTop: 30 }}
                     full
                     dark

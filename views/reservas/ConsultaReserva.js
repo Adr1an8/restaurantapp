@@ -106,7 +106,7 @@ const ConsultaReserva = () => {
                         <Text style={globalStyles.botonTexto}>Editar</Text>
                     </Button>
                     <Button
-                        onPress={ () => confirmarEliminacion(idreserva.id) }
+                        onPress={ () => confirmarEliminacion() }
                         full
                         danger
                         style={{marginTop: 20}}
@@ -117,7 +117,7 @@ const ConsultaReserva = () => {
             <Footer>
                 <FooterTab>
                     <Button
-                        onPress={ () => navigation.navigate('NuevaOrden')  }
+                        onPress={ () => navigation.navigate('InicioReserva')  }
                         style={[globalStyles.boton ]}
                         full
                     >

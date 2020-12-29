@@ -18,7 +18,6 @@ import VerOrdenesMeseros from './views/meseros/VerOrdenesMeseros';
 import InicioMeseros from './views/meseros/InicioMeseros';
 import DetallePlatilloMeseros from './views/meseros/DetallePlatilloMeseros';
 import FormularioPlatilloMeseros from './views/meseros/FormularioPlatilloMeseros';
-import ProgresoPedidoMeseros from './views/meseros/ProgresoPedidoMeseros';
 import ResumenPedidoMeseros from './views/meseros/ResumenPedidoMeseros';
 
 //reservas 
@@ -118,14 +117,6 @@ const App = () => {
                     component={FormularioPlatilloMeseros}
                     options={{
                       title: "Formulario",
-                    }}
-                  />
-
-                  <Stack.Screen
-                    name="ProgresoPedidoMeseros"
-                    component={ProgresoPedidoMeseros}
-                    options={{
-                      title: "Progreso",
                     }}
                   />
 

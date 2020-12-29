@@ -147,6 +147,7 @@ const ResumenPedido = () => {
                     keyboardType="numeric"
                     maxLength={3}
                     value={state.mesa}
+                    underlineColorAndroid="transparent"
                 />
                 <Button
                     onPress={ () => navigation.navigate('Menu') }

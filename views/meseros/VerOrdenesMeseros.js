@@ -13,7 +13,7 @@ import {
 import globalStyles from '../../styles/global';
 
 import FireMeseroContext from '../../context/fireMeseros/fireMeseroContext';
-//import PedidoContext from '../context/pedidos/pedidosContext';
+// import PedidoContext from '../../context/pedidos/pedidosContext';
 
 
 const VerOrdenesMeseros = () => {
@@ -22,7 +22,7 @@ const VerOrdenesMeseros = () => {
     const { ordenes, obtenerOrdenes } = useContext(FireMeseroContext);
 
     // Context de pedido
-    //const { seleccionarPlatillo } = useContext(PedidoContext);
+    // const { seleccionarPlatillo } = useContext(PedidoContext);
 
     // Hook para redireccionar
     const navigation = useNavigation();
@@ -43,13 +43,9 @@ const VerOrdenesMeseros = () => {
                                 <Text style={globalStyles.subtitulo}> Mesa#: {mesa}</Text>
                                 <ListItem
                                     // onPress={ () => {
-
-                                    //     // Eliminar algunas propiedades del platillo
-                                    //     const { existencia, ...platillo2 } = platillo;
-
-                                    //     seleccionarPlatillo(platillo2);
-                                    //     navigation.navigate("DetallePlatillo");
-                                    // }}
+                                    //      navigation.navigate("DetallePlatillo");
+                                    //      seleccionarPlatillo(ordenado);
+                                    //  }}
                                 >
                                     <Body>
                                         <Text>

@@ -63,6 +63,7 @@ const ResumenPedido = () => {
                         const pedidoObj = {
                             tiempoentrega: 0,
                             completado: false,
+                            cancelado: false,
                             total: Number(total),
                             orden: pedido, // array
                             creado: Date.now(),
@@ -74,7 +75,7 @@ const ResumenPedido = () => {
                             pedidoRealizado(pedido.id);
 
                             // redireccionar a progreso
-                            navigation.navigate("ProgresoPedidoMeseros")
+                            navigation.navigate("InicioMeseros")
                         } catch (error) {
                             console.log(error);
                         }

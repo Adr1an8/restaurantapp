@@ -42,7 +42,7 @@ const ResumenReserva = (props) => {
                             mostrarResumen(props.route.params.saveReserva);
 
                              // redireccionar a progreso
-                             navigation.navigate("NuevaOrden")
+                             navigation.navigate("InicioReserva")
                             
                          } catch (error) {
                              console.log(error);

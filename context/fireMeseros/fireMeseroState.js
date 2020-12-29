@@ -25,6 +25,7 @@ const FireMeseroState = props => {
         firebase.db
             .collection('ordenes')
             .where('completado', '==', false) // traer solo los que esten en existencia
+            .where('cancelado', '==', false)
             .onSnapshot(manejarSnapshot);
 
         function manejarSnapshot(snapshot) {
@@ -35,6 +36,8 @@ const FireMeseroState = props => {
                 }
             });
 
+            console.log(orden);
+
             // Tenemos resultados de la base de datos
             dispatch({
                 type: OBTENER_ORDENES_EXITO,
@@ -42,7 +45,6 @@ const FireMeseroState = props => {
             });
         }
     }
-
 
     return (
         <FireMeseroContext.Provider
