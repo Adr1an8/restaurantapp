@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native'
-import { Container, Text, H1, H3, Button } from 'native-base';
+import { View, StyleSheet, Alert } from 'react-native'
+import { Container, Text, H1, H3, Button, Footer, FooterTab } from 'native-base';
 import globalStyles from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
@@ -32,6 +32,42 @@ const ProgresoPedido = () => {
     const renderer = ({minutes, seconds}) => {
         return (
             <Text style={styles.tiempo}>{minutes}:{seconds} </Text>
+        )
+    }
+
+    // Redirecciona a la selección del método de pago
+    const pagoPedido = () => {
+        Alert.alert(
+            'Revisa tu pedido',
+            'Una vez que procedas al pago no podrás editar tu consumo',
+            [
+                {
+                    text: 'Confirmar',
+                    onPress: async () => {
+
+                        // crear un objeto
+                        // const pagoObj = {
+                        //     tiempoentrega: 0,
+                        //     completado: false,
+                        //     total: Number(total),
+                        //     orden: pedido, // array
+                        //     editado: Date.now(),
+                        //     mesa: state.mesa
+                        // }
+
+                        console.log('Al Pago');
+
+                        try {
+                            // redireccionar a selección de método de pago
+                            navigation.navigate("PagoPedido")
+                        } catch (error) {
+                            console.log(error);
+                        }
+                      
+                    }
+                }, 
+                { text: 'Revisar', style: 'cancel'}
+            ]
         )
     }
 
@@ -73,6 +109,17 @@ const ProgresoPedido = () => {
                     </>
                 ) }
              </View>
+             <Footer>
+                <FooterTab>
+                    <Button
+                        onPress={ () => pagoPedido()  }
+                        style={[globalStyles.boton]}
+                        full
+                    >
+                        <Text style={globalStyles.botonTexto}>Proceder al pago</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
          </Container>
      );
 }
