@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TextInput, TouchableOpacity, Alert } from 'react-native';
 import {
     Container,
@@ -13,18 +13,36 @@ import globalStyles from '../../styles/global';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+import ReservaContext from '../../context/reservas/reservasContext';
+
+import firebase from '../../firebase';
+
 import 'moment-timezone';
 import moment from 'moment';
 
 const FormularioReserva = (props) => {
 
-    const initialState = {
+    //Context guardado
+    const { reservacion, idreserva } = useContext(ReservaContext);
+
+    let initialState = {
         name: "",
         email: "",
         phone: "",
         personas: "",
         detail: "",
     }
+
+    if(reservacion){
+        initialState = {
+            name: reservacion.nombre,
+            email: reservacion.email,
+            phone: reservacion.phone,
+            personas: reservacion.personas,
+            detail: reservacion.detail,
+        }    
+    }
+
 
     const navigation = useNavigation();
 
@@ -93,17 +111,131 @@ const FormularioReserva = (props) => {
             Alert.alert("Correo mal ingresado");
         }else{
             Alert.alert("Debe llenar todos los campos");
-        }
+        }             
+    }
+    // redirecciona a Progreso pedido
+    const editarReserva = () => {
 
-    // try {
-    //     const reserva = await firebase.db.collection('reservas').add(reservaObj);
-    //     reservaRealizada(reserva.id);
+        Alert.alert(
+            'Desea editar su reserva',
+            'Por Favor llegar con tiempo de anticipación a su reserva',
+            [
+                {
+                    text: 'Confirmar',
+                    onPress: async () => {
+                        const reservDate = formatDate(date,time);
+                        const nowDate = moment().format('MMMM Do YYYY, h:mm:ss a');
 
-    //     // redireccionar a progreso
-        
-    // } catch (error) {
-         
-    // }               
+                        try {
+                            const reserva = await firebase.db.collection('reservas')
+                            .doc(idreserva)
+                            .update({
+                                nombre: state.name,
+                                email: state.email,
+                                phone: state.phone,
+                                personas: state.personas,
+                                datetime: reservDate,
+                                datetimenow: nowDate,
+                                detail: state.detail,
+                                activo: true,
+                            })
+    
+                                // redireccionar a progreso
+                                navigation.navigate("InicioReserva")
+                            
+                            } catch (error) {
+                                console.log(error);
+                            }    
+                    }
+                },
+                { text: 'Revisar', style: 'cancel' }
+            ]
+        )       
+    }
+    if(reservacion){
+        return (
+            <Container style={globalStyles.contenedor}>
+                <Content style={globalStyles.contenido}>
+                    <H1 style={globalStyles.titulo}>Formulario Reserva</H1>
+                    <TextInput
+                        placeholder="Name"
+                        onChangeText={(value) => handleChangeText(value, "name")}
+                        style={{fontWeight: 'bold'}}
+                        value={state.name}
+                        maxLength={30}
+                    />
+                    <TextInput
+                        placeholder="Email"
+                        onChangeText={(value) => handleChangeText(value, "email")}
+                        style={{fontWeight: 'bold'}}
+                        value={state.email}
+                        maxLength={35}
+                        
+                    />
+                    <TextInput
+                        placeholder="phone"
+                        onChangeText={(value) => handleChangeText(value, "phone")}
+                        style={{fontWeight: 'bold'}}
+                        keyboardType="numeric"
+                        value={state.phone}
+                        maxLength={10}
+                    />
+                    <TextInput
+                        placeholder="personas"
+                        onChangeText={(value) => handleChangeText(value, "personas")}
+                        style={{fontWeight: 'bold'}}
+                        keyboardType="numeric"
+                        value={state.personas}
+                        maxLength={3}
+                    />
+    
+                    {/* Datetime */}
+    
+                    <View style={{ marginTop: 5 }}>
+                        <TouchableOpacity onPress={showDatepicker}>
+                            <Text style={{ fontSize: 30 }}>{formatDate(date, time)}</Text>
+                        </TouchableOpacity>
+                        {show && (
+                            <DateTimePicker
+                                testID='dateTimePicker'
+                                timeZoneOffsetInMinutes={0}
+                                value={date}
+                                mode={mode}
+                                is24Hour={true}
+                                display='default'
+                                onChange={onChange}
+                            />
+                        )}
+                    </View>
+    
+                    <TextInput
+                        placeholder="Comentarios adicionales"
+                        multiline
+                        numberOfLines={4}
+                        onChangeText={(value) => handleChangeText(value, "detail")}
+                        style={{fontWeight: 'bold'}}
+                        maxLength={50}
+                        value={state.detail}
+                    />
+    
+                    <Button
+                        onPress={() => editarReserva()}
+                        style={{ marginTop: 30 }}
+                        full
+                        dark
+                    >
+                        <Text style={[globalStyles.botonTexto, { color: '#FFF' }]}>Confirmar</Text>
+                    </Button>
+                    <Button
+                            onPress={() => navigation.navigate('ConsultaReserva')}
+                            style={[globalStyles.boton]}
+                            full
+                        >
+                            <Text style={globalStyles.botonTexto}>Cancelar</Text>
+                        </Button>
+                </Content>
+            </Container>
+        );
     }
     return (
         <Container style={globalStyles.contenedor}>

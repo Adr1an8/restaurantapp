@@ -25,7 +25,7 @@ const ResumenReserva = (props) => {
     const navigation = useNavigation();
 
     // context de pedido
-    const { reservaRealizada, mostrarResumen } = useContext(ReservaContext);
+    const { reservaRealizada, mostrarResumen} = useContext(ReservaContext);
 
      const progresoPedido = () => {
          Alert.alert(

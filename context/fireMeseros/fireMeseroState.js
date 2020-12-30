@@ -36,8 +36,6 @@ const FireMeseroState = props => {
                 }
             });
 
-            console.log(orden);
-
             // Tenemos resultados de la base de datos
             dispatch({
                 type: OBTENER_ORDENES_EXITO,

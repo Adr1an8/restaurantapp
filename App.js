@@ -19,6 +19,7 @@ import InicioMeseros from './views/meseros/InicioMeseros';
 import DetallePlatilloMeseros from './views/meseros/DetallePlatilloMeseros';
 import FormularioPlatilloMeseros from './views/meseros/FormularioPlatilloMeseros';
 import ResumenPedidoMeseros from './views/meseros/ResumenPedidoMeseros';
+import EditarOrdenesMeseros from './views/meseros/EditarOrdenesMeseros';
 
 //reservas 
 import InicioReserva from './views/reservas/InicioReserva';
@@ -133,6 +134,14 @@ const App = () => {
                     component={VerOrdenesMeseros}
                     options={{
                       title: "Ordenes",
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="EditarOrdenesMeseros"
+                    component={EditarOrdenesMeseros}
+                    options={{
+                      title: "Editar Orden",
                     }}
                   />
 

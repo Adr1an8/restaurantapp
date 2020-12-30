@@ -1,9 +1,8 @@
-import React, { useContext} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import {
-    
     Text,
     Container,
     Content,
@@ -28,10 +27,30 @@ const ConsultaReserva = () => {
     //Context guardado
     const { reservacion, idreserva, mostrarResumen } = useContext(ReservaContext);
 
+    const [reserva, setReserva] = useState([]);
+
+    if(reservacion){
+        const getReservaById = async id => {
+            const dbRef = firebase.db.collection('reservas').doc(id)
+            const doc = await dbRef.get();
+            const reserva = doc.data();
+            setReserva({
+                ...reserva
+            })
+        }
+    
+        //Consultar reserva
+        useEffect(() => {
+            getReservaById(idreserva);
+            
+        }, []);
+    }
+
+
     // Hook para redireccionar
     const navigation = useNavigation()
 
-    if ( reservacion === null){
+    if ( !reservacion){
         return(
             <Text style={globalStyles.titulo}>No tiene una reservacion</Text>
         )
@@ -71,23 +90,23 @@ const ConsultaReserva = () => {
                 <Card>
                     <CardItem>
                         <Left><Text>Fecha:</Text></Left>
-                        <Body><Text>{reservacion.datetime}</Text></Body>
+                        <Body><Text>{reserva.datetime}</Text></Body>
                     </CardItem>
                     <CardItem>
                         <Left><Text>Nombre:</Text></Left>
-                        <Body><Text>{reservacion.nombre}</Text></Body>
+                        <Body><Text>{reserva.nombre}</Text></Body>
                     </CardItem>
                     <CardItem>
                         <Left><Text>Email:</Text></Left>
-                        <Body><Text>{reservacion.email}</Text></Body>    
+                        <Body><Text>{reserva.email}</Text></Body>    
                     </CardItem>
                     <CardItem>
                         <Left><Text>Telefono:</Text></Left>
-                        <Body><Text>{reservacion.phone}</Text></Body>    
+                        <Body><Text>{reserva.phone}</Text></Body>    
                     </CardItem>
                     <CardItem>
                         <Left><Text>N. Personas:</Text></Left>
-                        <Body><Text>{reservacion.personas}</Text></Body>    
+                        <Body><Text>{reserva.personas}</Text></Body>    
                     </CardItem>
                 </Card>
                 <Card>
@@ -95,7 +114,7 @@ const ConsultaReserva = () => {
                         <Text>Comentarios Adicionales: </Text>    
                     </CardItem>
                     <CardItem>
-                        <Text>{reservacion.detail}</Text>
+                        <Text>{reserva.detail}</Text>
                     </CardItem>
                 </Card>
                     <Button
