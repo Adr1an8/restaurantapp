@@ -16,7 +16,6 @@ import Principal from './views/Principal';
 import MenuMeseros from './views/meseros/MenuMeseros';
 import VerOrdenesMeseros from './views/meseros/VerOrdenesMeseros';
 import InicioMeseros from './views/meseros/InicioMeseros';
-import DetallePlatilloMeseros from './views/meseros/DetallePlatilloMeseros';
 import FormularioPlatilloMeseros from './views/meseros/FormularioPlatilloMeseros';
 import ResumenPedidoMeseros from './views/meseros/ResumenPedidoMeseros';
 import EditarOrdenesMeseros from './views/meseros/EditarOrdenesMeseros';
@@ -102,14 +101,6 @@ const App = () => {
                     options={{
                       title: "Nuestro Menú",
                       headerRight: props => <BotonResumenMeseros />
-                    }}
-                  />
-
-                  <Stack.Screen
-                    name="DetallePlatilloMeseros"
-                    component={DetallePlatilloMeseros}
-                    options={{
-                      title: "Detalle Platillo",
                     }}
                   />
 

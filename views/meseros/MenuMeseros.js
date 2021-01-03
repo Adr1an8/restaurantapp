@@ -17,7 +17,7 @@ import FirebaseContext from '../../context/firebase/firebaseContext';
 import PedidoContext from '../../context/pedidos/pedidosContext';
 
 
-const MenuMeseros = () => {
+const MenuMeseros = (props) => {
 
     // Context de Firebase 
     const { menu, obtenerProductos } = useContext(FirebaseContext);
@@ -67,7 +67,7 @@ const MenuMeseros = () => {
                                         const { existencia, ...platillo2 } = platillo;
 
                                         seleccionarPlatillo(platillo2);
-                                        navigation.navigate("DetallePlatilloMeseros");
+                                        navigation.navigate("FormularioPlatilloMeseros");
                                     }}
                                 >
                                     <Thumbnail 

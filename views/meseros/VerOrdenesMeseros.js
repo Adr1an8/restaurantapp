@@ -16,13 +16,13 @@ import FireMeseroContext from '../../context/fireMeseros/fireMeseroContext';
 import PedidoContext from '../../context/pedidos/pedidosContext';
 
 
-const VerOrdenesMeseros = () => {
+const VerOrdenesMeseros = (props) => {
 
     // Context de Firebase 
-    const { ordenes, obtenerOrdenes } = useContext(FireMeseroContext);
+    const { ordenes, obtenerOrdenes} = useContext(FireMeseroContext);
 
     // Context de pedido
-     const { seleccionarPlatillo } = useContext(PedidoContext);
+     const { seleccionarPlatillo, guardarPedido } = useContext(PedidoContext);
 
     // Hook para redireccionar
     const navigation = useNavigation();
@@ -43,8 +43,9 @@ const VerOrdenesMeseros = () => {
                                 <Text style={globalStyles.subtitulo}> Mesa#: {mesa}</Text>
                                 <ListItem
                                      onPress={ () => {
-                                          navigation.navigate("EditarOrdenesMeseros");
+                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden});
                                           seleccionarPlatillo(ordenado);
+                                          guardarPedido(ordenado);
                                       }}
                                 >
                                     <Body>
