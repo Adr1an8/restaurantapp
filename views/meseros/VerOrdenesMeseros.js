@@ -8,21 +8,18 @@ import {
     ListItem,
     Text,
     Body,
-    Button
+    Button,
+    Thumbnail
 } from 'native-base';
 import globalStyles from '../../styles/global';
 
 import FireMeseroContext from '../../context/fireMeseros/fireMeseroContext';
-import PedidoContext from '../../context/pedidos/pedidosContext';
 
 
 const VerOrdenesMeseros = (props) => {
 
     // Context de Firebase 
     const { ordenes, obtenerOrdenes} = useContext(FireMeseroContext);
-
-    // Context de pedido
-     const { seleccionarPlatillo, guardarPedido } = useContext(PedidoContext);
 
     // Hook para redireccionar
     const navigation = useNavigation();
@@ -43,9 +40,7 @@ const VerOrdenesMeseros = (props) => {
                                 <Text style={globalStyles.subtitulo}> Mesa#: {mesa}</Text>
                                 <ListItem
                                      onPress={ () => {
-                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden});
-                                          seleccionarPlatillo(ordenado);
-                                          guardarPedido(ordenado);
+                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden, idPedido:ordenes});
                                       }}
                                 >
                                     <Body>
@@ -78,6 +73,10 @@ const VerOrdenesMeseros = (props) => {
                     <Text style={globalStyles.botonTexto}>Regresar</Text>
                 </Button>
             </View>
+            <Thumbnail
+                style={styles.logoFooter} 
+                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+            />
             </Content>
         </Container>
      );
@@ -94,7 +93,12 @@ const styles = StyleSheet.create({
     },
     platosStyle: {
         fontSize: 20
-    }
+    },
+    logoFooter: {
+        marginTop: '10%',
+        paddingTop: 100,
+        width: '100%',
+    },
 })
  
 export default VerOrdenesMeseros;

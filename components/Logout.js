@@ -29,9 +29,10 @@ const Logout = (props) => {
 
     return (
         <View>
-            <View> 
+            <View>
+                <Text style={globalStyles.titulo} >¿Desea salir?</Text> 
                 <Button
-                    style={globalStyles.boton}
+                    style={[globalStyles.boton, styles.separadorBoton]}
                     rounded
                     block
                     onPress={() => logout()}
@@ -58,6 +59,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#ffff00'
+    },
+    separadorBoton: {
+        marginTop: 5,
+        marginBottom: 5
     },
     welcome: {
         fontSize: 30,

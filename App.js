@@ -61,12 +61,12 @@ const App = () => {
                 <Stack.Navigator
                   screenOptions={{
                     headerStyle: {
-                      backgroundColor: '#FFDA00'
+                      backgroundColor: '#9c4221'
                     },
                     headerTitleStyle: {
                       fontWeight: 'bold'
                     },
-                    headerTintColor: '#000'
+                    headerTintColor: '#fff'
                   }}
                 >
                   <Stack.Screen

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Alert } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import {
     Container,
     Content,
@@ -11,7 +11,8 @@ import {
     Button,
     Text,
     Footer,
-    FooterTab
+    FooterTab,
+    Thumbnail
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native'
 import globalStyles from '../styles/global';
@@ -126,8 +127,11 @@ const FormularioPlatillo = () => {
 
                     <Text style={globalStyles.cantidad}>Subtotal: $ {total} </Text>
                 </Form>
+                <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
             </Content>
-
             <Footer>
                 <FooterTab>
                     <Button
@@ -141,5 +145,13 @@ const FormularioPlatillo = () => {
         </Container>
      );
 }
+
+const styles = StyleSheet.create({
+    logoFooter: {
+        marginTop: 5,
+        paddingTop: 100,
+        width: '100%',
+    },
+})
  
 export default FormularioPlatillo;

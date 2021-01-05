@@ -1,5 +1,5 @@
-import React, {  useContext, useEffect, useState } from 'react';
-import {  Alert, TextInput } from 'react-native';
+import React from 'react';
+import {  Alert, StyleSheet } from 'react-native';
 import {
     Container,
     Content, 
@@ -18,37 +18,12 @@ import { useNavigation } from '@react-navigation/native'
 import globalStyles from '../../styles/global';
 import firebase from '../../firebase';
 
-import PedidoContext from '../../context/pedidos/pedidosContext';
-
 const EditarOrdenMeseros = (props) => {
 
     const navigation = useNavigation();
 
-    const initialState = {
-        mesa: ""
-    }
-
-    // context de pedido
-    const { pedido, platillo, total, mostrarResumen, eliminarProducto, pedidoRealizado } = useContext(PedidoContext);
-
-    const { id } = platillo;
-    const idPlatoEditar = id;
-
+    let idPedido = props.route.params.idPedido;
     let pedidos = props.route.params.arrayPedido; 
-
-    const [state, setState] = useState(initialState);
-    
-    useEffect(() => {
-        calcularTotal();
-    }, [pedido]);
-
-    const calcularTotal = () => {
-        let nuevoTotal = 0;
-        nuevoTotal = pedido.reduce( (nuevoTotal, articulo) => nuevoTotal + articulo.total, 0);
-
-        mostrarResumen(nuevoTotal)
-
-    }
 
     const EliminacionCompleta = () => {
         Alert.alert(
@@ -61,7 +36,7 @@ const EditarOrdenMeseros = (props) => {
 
                         try {
                             const cancelarPedido = await firebase.db.collection('ordenes')
-                            .doc(idPlatoEditar)
+                            .doc(idPedido)
                             .update({
                                 cancelado: true
                             })
@@ -109,11 +84,15 @@ const EditarOrdenMeseros = (props) => {
                     >
                         <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Eliminar</Text>
                     </Button>
+                    <Thumbnail
+                style={styles.logoFooter} 
+                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+            />
             </Content>
             <Footer>
                 <FooterTab>
                     <Button
-                        onPress={ () => navigation.navigate("VerOrdenesMeseros")  }
+                        onPress={ () => navigation.navigate('VerOrdenesMeseros') }
                          style={[globalStyles.boton ]}
                          full
                     >
@@ -125,5 +104,14 @@ const EditarOrdenMeseros = (props) => {
         </Container>
      );
 }
+
+const styles = StyleSheet.create({
+
+    logoFooter: {
+        marginTop: '10%',
+        paddingTop: 100,
+        width: '100%',
+    },
+})
  
 export default EditarOrdenMeseros;

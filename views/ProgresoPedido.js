@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheets } from 'react-native'
-import { Container, Text, H1, H3, Button } from 'native-base';
+import { View, StyleSheet } from 'react-native'
+import { Container, Text, H1, H3, Button, Thumbnail } from 'native-base';
 import globalStyles from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
@@ -42,6 +42,10 @@ const ProgresoPedido = () => {
                     <>
                         <Text style={{ textAlign: 'center'}}>Hemos recibido tu orden...</Text>
                         <Text style={{ textAlign: 'center'}}>Estamos calculando el tiempo de entrega</Text>
+                        <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
                     </>
                 ) }
                 
@@ -54,6 +58,10 @@ const ProgresoPedido = () => {
                                 renderer={renderer}
                             />
                         </Text>
+                        <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
                     </>
                 )} 
 
@@ -66,6 +74,10 @@ const ProgresoPedido = () => {
                                 renderer={renderer}
                             />
                         </Text>
+                        <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
                     </>
                 )} 
 
@@ -81,7 +93,10 @@ const ProgresoPedido = () => {
                         >
                             <Text style={globalStyles.botonTexto}>Comenzar Una Orden Nueva</Text>
                         </Button>
-
+                        <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
                     </>
                 ) }
              </View>
@@ -90,17 +105,11 @@ const ProgresoPedido = () => {
 }
 
 const styles = StyleSheet.create({
-    tiempo: {
-        marginBottom: 20,
-        fontSize: 60,
-        textAlign: 'center',
-        marginTop: 80,
+    logoFooter: {
+        marginTop: 5,
+        paddingTop: 100,
+        width: '100%',
     },
-    textoCompletado: {
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        marginBottom: 20
-    }
 })
  
 export default ProgresoPedido;

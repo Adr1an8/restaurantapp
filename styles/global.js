@@ -9,12 +9,12 @@ const globalStyles = StyleSheet.create({
         flex: 1,
     },
     boton: {
-        backgroundColor: '#FFDA00'
+        backgroundColor: '#9c4221'
     },
     botonTexto: {
         textTransform: 'uppercase',
         fontWeight: 'bold',
-        color: '#000'
+        color: '#fff'
     },
     titulo: {
         textAlign: 'center',
