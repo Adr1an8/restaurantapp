@@ -35,6 +35,10 @@ import BotonLogin from './components/ui/BotonLogin';
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
+import Reset from './components/Reset';
+
+// Pago
+import PagoPedido from './views/PagoPedido';
 
 // importar state de context
 import FirebaseState from './context/firebase/firebaseState';
@@ -43,7 +47,6 @@ import FireMeseroState from './context/fireMeseros/fireMeseroState';
 import PedidoState from './context/pedidos/pedidosState';
 import ReservaState from './context/reservas/reservasState';
 import UserState from './context/user/userState';
-
 
 const Stack = createStackNavigator();
 
@@ -233,6 +236,22 @@ const App = () => {
                     }}
                   />
 
+                  <Stack.Screen
+                    name="PagoPedido"
+                    component={PagoPedido}
+                    options={{
+                      title: "Inicia el pago del pedido",
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Reset"
+                    component={Reset}
+                    options={{
+                      title: "Reseteo de la contraseña",
+                    }}
+                  />
+
                 </Stack.Navigator>
               </NavigationContainer>
               </UserState>
@@ -244,6 +263,5 @@ const App = () => {
     </>
   );
 };
-
 
 export default App;

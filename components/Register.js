@@ -18,32 +18,69 @@ import { useNavigation } from '@react-navigation/native'
 const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+    const [phone, setPhone] = useState('');
+    const [names, setNames] = useState('');
+    const [identification, setIdentification] = useState('');
+    const [address, setAddress] = useState('');
 
     const navigation = useNavigation();
 
     const submit = () => {
         Alert.alert(
             'Desea registrarse con este correo',
-            'Este correo le servira para navegar dentro de la app',
+            'Este correo le servirá para navegar dentro de la app.',
             [
                 {
                     text: 'Confirmar',
                     onPress: async () => {
-                        try {
-                            await firebase.user.createUserWithEmailAndPassword(email, password)
-                                .then((res) => firebase.user.currentUser.sendEmailVerification().then(function () {
-                                    console.log("Correo de verificación enviado")
-                                    navigation.navigate("Login")
-                                }, function (error) {
-                                    console.log("Correo no enviado" + error)
-                                }))
-                                .catch((res) => alert('Contrasena debe tener mas de 6 caracteres'));
+                        if(password == passwordConfirmation){
+                            // Validar cédula, pasaporte
+                            // Validar teléfono
+                            try {
+                                await firebase.user.createUserWithEmailAndPassword(email, password)
+                                    .then((res) => firebase.user.currentUser.sendEmailVerification().then(function () {
+                                        console.log("Correo de verificación enviado")
 
+                                        console.log(res.user.uid);
 
+                                        // const usuarioObj = {
+                                        //     uid: res.user.uid,
+                                        //     identificacion: identification,
+                                        //     correo: email,
+                                        //     nombre: names,
+                                        //     telefono: phone,
+                                        //     direccion: address,
+                                        //     rol: 'Usuario',
+                                        //     existencia: false
+                                        // }
 
-                        } catch (error) {
-                            console.log(error);
-                        }
+                                        try{
+                                            const usuario = firebase.db.collection('usuarios').doc(res.user.uid).set({
+                                                identificacion: identification,
+                                                correo: email,
+                                                nombre: names,
+                                                telefono: phone,
+                                                direccion: address,
+                                                rol: 'Cliente',
+                                                existencia: true
+                                            });
+                                            console.log(usuario);
+                                        }catch(error){
+                                            console.log(error);
+                                        }
+
+                                        navigation.navigate("Login")
+                                  }, function (error) {
+                                        console.log("Correo no enviado" + error)
+                                  }))
+                                  .catch((res) => alert(res));
+                            } catch (error) {
+                                console.log(error);
+                            }           
+                        }else{
+                            Alert.alert('Error','Las contraseñas deben ser iguales.');
+                        }   
                     }
                 }
             ]
@@ -51,6 +88,32 @@ const Register = (props) => {
 
     }
 
+    // const validarCedula = cedula => {
+    //     var cad = cedula.trim();
+    //     var total = 0;
+    //     var longitud = cad.length;
+    //     var longcheck = longitud - 1;
+
+    //     if (cad !== "" && longitud === 10){
+    //       for(i = 0; i < longcheck; i++){
+    //         if (i%2 === 0) {
+    //           var aux = cad.charAt(i) * 2;
+    //           if (aux > 9) aux -= 9;
+    //           total += aux;
+    //         } else {
+    //           total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
+    //         }
+    //       }
+
+    //       total = total % 10 ? 10 - total % 10 : 0;
+
+    //       if (cad.charAt(longitud-1) == total) {
+    //         Alert.alert("Cedula Válida");
+    //       }else{
+    //         Alert.alert("Cedula Inválida");
+    //       }
+    //     }
+    // }
 
     return (
         <View>
@@ -63,18 +126,59 @@ const Register = (props) => {
                     style={styles.input}
                     type="email"
                     id="email"
-                    placeholder="Email"
+                    placeholder="Correo electrónico"
                     onChangeText={text => setEmail(text)}
                     value={email}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     secureTextEntry
                     type="password"
                     id="password"
                     onChangeText={text => setPassword(text)}
                     value={password}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Confirmar contraseña"
+                    secureTextEntry
+                    type="password"
+                    id="passwordConfirmation"
+                    onChangeText={text => setPasswordConfirmation(text)}
+                    value={passwordConfirmation}
+                />
+                <TextInput
+                    style={styles.input}
+                    type="names"
+                    id="names"
+                    placeholder="Nombres"
+                    onChangeText={text => setNames(text)}
+                    value={names}
+                />
+                <TextInput
+                    style={styles.input}
+                    type="identification"
+                    id="identification"
+                    placeholder="Identificación"
+                    onChangeText={text => setIdentification(text)}
+                    value={identification}
+                />
+                <TextInput
+                    style={styles.input}
+                    type="phone"
+                    id="phone"
+                    placeholder="Teléfono"
+                    onChangeText={text => setPhone(text)}
+                    value={phone}
+                />       
+                <TextInput
+                    style={styles.input}
+                    type="address"
+                    id="address"
+                    placeholder="Dirección"
+                    onChangeText={text => setAddress(text)}
+                    value={address}
                 />
                 <View style={styles.btnContainer}>
                     <TouchableOpacity

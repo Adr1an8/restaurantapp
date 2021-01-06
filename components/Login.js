@@ -43,9 +43,7 @@ const Login = (props) => {
                 navigation.navigate("InicioMeseros");
             }else{
                 navigation.navigate("NuevaOrden");
-            }
-            
-            
+            }            
         })
         .catch((res) => alert('Usuario no encontrado'));
         
@@ -99,6 +97,15 @@ const Login = (props) => {
                             onPress={() => navigation.navigate("Register")}
                         >
                             <Text style={styles.btnText}>Registrarse</Text>
+                        </TouchableOpacity>                   
+                    </View>
+                    <View style={styles.space}></View>
+                    <View style={styles.btnContainer}>
+                        <TouchableOpacity
+                            style={styles.userBtn}
+                            onPress={() => navigation.navigate("Reset")}
+                        >
+                            <Text style={styles.btnText}>Resetear</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -167,6 +174,9 @@ const styles = StyleSheet.create({
         paddingTop: 100,
         width: '100%',
     },
+    space: {
+        marginBottom: 18
+    }
 })
 
 export default Login;

@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native'
-import { Container, Text, H1, H3, Button, Thumbnail } from 'native-base';
+import { View, StyleSheet, Alert } from 'react-native'
+import { Container, Text, H1, H3, Button, Footer, FooterTab, Thumbnail } from 'native-base';
 import globalStyles from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
 import firebase from '../firebase';
 import Countdown from 'react-countdown';
+import axios from 'axios';
 
 const ProgresoPedido = () => {
 
@@ -25,13 +26,57 @@ const ProgresoPedido = () => {
                             guardarCompletado(doc.data().completado)
                         })
         }
+
+        // const obtenerCheckOutId = async () => {
+        //     const url = 'https://test.oppwa.com';
+        //     const resultado = await axios.post(url);
+        //     console.log(resultado);
+        // }
+
         obtenerProducto()
+        // obtenerCheckOutId()
     }, []);
 
     // Muestra el countdown en la pantalla
     const renderer = ({minutes, seconds}) => {
         return (
             <Text style={styles.tiempo}>{minutes}:{seconds} </Text>
+        )
+    }
+
+    // Redirecciona a la selección del método de pago
+    const pagoPedido = () => {
+        Alert.alert(
+            'Revisa tu pedido',
+            'Una vez que procedas al pago no podrás editar tu consumo',
+            [
+                {
+                    text: 'Confirmar',
+                    onPress: async () => {
+
+                        // crear un objeto
+                        // const pagoObj = {
+                        //     tiempoentrega: 0,
+                        //     completado: false,
+                        //     total: Number(total),
+                        //     orden: pedido, // array
+                        //     editado: Date.now(),
+                        //     mesa: state.mesa
+                        // }
+
+                        console.log('Al Pago');
+
+                        try {
+                            // redireccionar a selección de método de pago
+                            navigation.navigate("PagoPedido")
+                        } catch (error) {
+                            console.log(error);
+                        }
+                      
+                    }
+                }, 
+                { text: 'Revisar', style: 'cancel'}
+            ]
         )
     }
 
@@ -100,6 +145,17 @@ const ProgresoPedido = () => {
                     </>
                 ) }
              </View>
+             <Footer>
+                <FooterTab>
+                    <Button
+                        onPress={ () => pagoPedido()  }
+                        style={[globalStyles.boton]}
+                        full
+                    >
+                        <Text style={globalStyles.botonTexto}>Proceder al pago</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
          </Container>
      );
 }
