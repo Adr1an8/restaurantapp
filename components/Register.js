@@ -47,7 +47,7 @@ const Register = (props) => {
                             }
                             
                             try {
-                                // if(identification.length != 13 || identification.length != 10 ){
+                                // if(identification.length < 10 || identification.length > 13 ){
                                 //     Alert.alert("Ingrese un numero de cedula o ruc correcto");
                                 // }else if(phone.length != 9 || phone.length != 10){
                                 //     Alert.alert("Numero de telefono incorrecto");
