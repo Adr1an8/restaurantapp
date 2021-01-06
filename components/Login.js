@@ -11,8 +11,6 @@ import firebase from './../firebase';
 
 import { useNavigation } from '@react-navigation/native'
 
-
-
 const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -21,14 +19,12 @@ const Login = (props) => {
     const login = async () => {
         await firebase.user.signInWithEmailAndPassword(email,password)
         .then(function(res) {
-            alert('Ingresado Correctamente');
+            alert('Ingreso Correcto');
             if(email === "aguchoshinta@live.com"){
                 navigation.navigate("MenuMeseros");
             }else{
                 navigation.navigate("NuevaOrden");
-            }
-            
-            
+            }            
         })
         .catch((res) => alert('Usuario no encontrado'));
         
@@ -78,6 +74,15 @@ const Login = (props) => {
                             onPress={() => navigation.navigate("Register")}
                         >
                             <Text style={styles.btnText}>Registrarse</Text>
+                        </TouchableOpacity>                   
+                    </View>
+                    <View style={styles.space}></View>
+                    <View style={styles.btnContainer}>
+                        <TouchableOpacity
+                            style={styles.userBtn}
+                            onPress={() => navigation.navigate("Reset")}
+                        >
+                            <Text style={styles.btnText}>Resetear</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -129,6 +134,9 @@ const styles = StyleSheet.create({
     contenido: {
         flexDirection: 'column',
         justifyContent: 'center'
+    },
+    space: {
+        marginBottom: 18
     }
 })
 

@@ -29,6 +29,7 @@ import BotonLogin from './components/ui/BotonLogin';
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
+import Reset from './components/Reset';
 
 // Pago
 import PagoPedido from './views/PagoPedido';
@@ -190,6 +191,14 @@ const App = () => {
                     component={PagoPedido}
                     options={{
                       title: "Inicia el pago del pedido",
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="Reset"
+                    component={Reset}
+                    options={{
+                      title: "Reseteo de la contraseña",
                     }}
                   />
 

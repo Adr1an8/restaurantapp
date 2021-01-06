@@ -18,7 +18,7 @@ const Logout = (props) => {
 
     const logout = async () => {
         await firebase.user.signOut()
-            .then((res) => alert('A salido correctamente'));
+            .then((res) => alert('Cerrar sesión','Sesión finalizada'));
 
         navigation.navigate("Principal");
 

@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
 import firebase from '../firebase';
 import Countdown from 'react-countdown';
+import axios from 'axios';
 
 const ProgresoPedido = () => {
 
@@ -25,7 +26,15 @@ const ProgresoPedido = () => {
                             guardarCompletado(doc.data().completado)
                         })
         }
+
+        // const obtenerCheckOutId = async () => {
+        //     const url = 'https://test.oppwa.com';
+        //     const resultado = await axios.post(url);
+        //     console.log(resultado);
+        // }
+
         obtenerProducto()
+        // obtenerCheckOutId()
     }, []);
 
     // Muestra el countdown en la pantalla

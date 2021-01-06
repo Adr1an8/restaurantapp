@@ -1,4 +1,5 @@
 {
   "name": "restaurantapp",
-  "displayName": "restaurantapp"
+  "displayName": "restaurantapp",
+  "environment": "test"
 }
