@@ -59,21 +59,6 @@ const PagoPedido = () => {
                 <Picker.Item label="Electrónica" value="electronica" />
             </Picker>;
 
-            // eleccionPago = <com.paymentez.android.view.CardMultilineWidget
-            //     id="@+id/card_multiline_widget"
-            //     layout_alignParentTop="true"
-            //     layout_width="match_parent"
-            //     layout_height="wrap_content"/>
-
-
-            // cardToSave = cardWidget.getCard();
-
-            // if (cardToSave == null) {
-            //     Alert.show(mContext,
-            //         "Error",
-            //         "Invalid Card Data");
-            //     return;
-            // }
 
         } else if(ambiente.environment == "produccion"){
             eleccionPago = <Text>Tarjeta Produccion</Text>;
@@ -99,16 +84,6 @@ const PagoPedido = () => {
                 {
                     text: 'Confirmar',
                     onPress: async () => {
-
-                        // crear un objeto
-                        // const pagoObj = {
-                        //     tiempoentrega: 0,
-                        //     completado: false,
-                        //     total: Number(total),
-                        //     orden: pedido, // array
-                        //     editado: Date.now(),
-                        //     mesa: state.mesa
-                        // }
 
                         console.log('Al Pago');
 

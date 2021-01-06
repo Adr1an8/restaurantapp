@@ -1,14 +1,18 @@
 import React, { useState } from 'react'
 import {
     Text,
-    View,
     StyleSheet,
     TextInput,
-    TouchableOpacity,
     Alert,
 } from 'react-native';
+import globalStyles from '../styles/global';
 import {
-    Thumbnail
+    Thumbnail,
+    Container,
+    Content,
+    Footer,
+    FooterTab,
+    Button
 } from 'native-base';
 
 import firebase from './../firebase';
@@ -35,26 +39,26 @@ const Register = (props) => {
                     text: 'Confirmar',
                     onPress: async () => {
                         if(password == passwordConfirmation){
-                            // Validar cédula, pasaporte
-                            // Validar teléfono
+                            
+                            const validate = (email) => {
+                                const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+                            
+                                return expression.test(String(email).toLowerCase())
+                            }
+                            
                             try {
-                                await firebase.user.createUserWithEmailAndPassword(email, password)
+                                // if(identification.length != 13 || identification.length != 10 ){
+                                //     Alert.alert("Ingrese un numero de cedula o ruc correcto");
+                                // }else if(phone.length != 9 || phone.length != 10){
+                                //     Alert.alert("Numero de telefono incorrecto");
+                                // } else if(!validate(email)){
+                                //     Alert.alert("Email incorrecto");
+                                // } else if(!identification && !email && !names && !phone && !address){
+                                //     Alert.alert("Debe llenar todos los campos");
+                                // }else{
+                                    await firebase.user.createUserWithEmailAndPassword(email, password)
                                     .then((res) => firebase.user.currentUser.sendEmailVerification().then(function () {
-                                        console.log("Correo de verificación enviado")
-
-                                        console.log(res.user.uid);
-
-                                        // const usuarioObj = {
-                                        //     uid: res.user.uid,
-                                        //     identificacion: identification,
-                                        //     correo: email,
-                                        //     nombre: names,
-                                        //     telefono: phone,
-                                        //     direccion: address,
-                                        //     rol: 'Usuario',
-                                        //     existencia: false
-                                        // }
-
+                                        
                                         try{
                                             const usuario = firebase.db.collection('usuarios').doc(res.user.uid).set({
                                                 identificacion: identification,
@@ -65,63 +69,33 @@ const Register = (props) => {
                                                 rol: 'Cliente',
                                                 existencia: true
                                             });
-                                            console.log(usuario);
                                         }catch(error){
                                             console.log(error);
                                         }
 
                                         navigation.navigate("Login")
                                   }, function (error) {
-                                        console.log("Correo no enviado" + error)
+                                    Alert.alert("Debe llenar todos los campos" + error);
                                   }))
                                   .catch((res) => alert(res));
+                                // }
                             } catch (error) {
-                                console.log(error);
+                                Alert.alert("Algo salio mal" + error);
                             }           
                         }else{
                             Alert.alert('Error','Las contraseñas deben ser iguales.');
                         }   
                     }
-                }
+                },
+                { text: 'Revisar', style: 'cancel' }
             ]
         )
 
     }
 
-    // const validarCedula = cedula => {
-    //     var cad = cedula.trim();
-    //     var total = 0;
-    //     var longitud = cad.length;
-    //     var longcheck = longitud - 1;
-
-    //     if (cad !== "" && longitud === 10){
-    //       for(i = 0; i < longcheck; i++){
-    //         if (i%2 === 0) {
-    //           var aux = cad.charAt(i) * 2;
-    //           if (aux > 9) aux -= 9;
-    //           total += aux;
-    //         } else {
-    //           total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
-    //         }
-    //       }
-
-    //       total = total % 10 ? 10 - total % 10 : 0;
-
-    //       if (cad.charAt(longitud-1) == total) {
-    //         Alert.alert("Cedula Válida");
-    //       }else{
-    //         Alert.alert("Cedula Inválida");
-    //       }
-    //     }
-    // }
-
     return (
-        <View>
-            <Thumbnail
-                style={styles.logo} 
-                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-1.png?alt=media&token=2b54a5df-01e6-4280-9d30-a42dfad39c6c' }} 
-            />
-            <View>
+        <Container style={globalStyles.contenedor}>
+            <Content style={globalStyles.contenido}>
                 <TextInput
                     style={styles.input}
                     type="email"
@@ -129,6 +103,7 @@ const Register = (props) => {
                     placeholder="Correo electrónico"
                     onChangeText={text => setEmail(text)}
                     value={email}
+                    maxLength={35}
                 />
                 <TextInput
                     style={styles.input}
@@ -138,6 +113,7 @@ const Register = (props) => {
                     id="password"
                     onChangeText={text => setPassword(text)}
                     value={password}
+                    maxLength={35}
                 />
                 <TextInput
                     style={styles.input}
@@ -147,6 +123,7 @@ const Register = (props) => {
                     id="passwordConfirmation"
                     onChangeText={text => setPasswordConfirmation(text)}
                     value={passwordConfirmation}
+                    maxLength={35}
                 />
                 <TextInput
                     style={styles.input}
@@ -155,6 +132,7 @@ const Register = (props) => {
                     placeholder="Nombres"
                     onChangeText={text => setNames(text)}
                     value={names}
+                    maxLength={30}
                 />
                 <TextInput
                     style={styles.input}
@@ -163,6 +141,8 @@ const Register = (props) => {
                     placeholder="Identificación"
                     onChangeText={text => setIdentification(text)}
                     value={identification}
+                    keyboardType="numeric"
+                    maxLength={15}
                 />
                 <TextInput
                     style={styles.input}
@@ -171,6 +151,8 @@ const Register = (props) => {
                     placeholder="Teléfono"
                     onChangeText={text => setPhone(text)}
                     value={phone}
+                    keyboardType="numeric"
+                    maxLength={10}
                 />       
                 <TextInput
                     style={styles.input}
@@ -179,21 +161,32 @@ const Register = (props) => {
                     placeholder="Dirección"
                     onChangeText={text => setAddress(text)}
                     value={address}
+                    maxLength={60}
                 />
-                <View style={styles.btnContainer}>
-                    <TouchableOpacity
-                        style={styles.userBtn}
-                        onPress={() => submit()}
+            </Content>
+            <Button
+                        onPress={ () => submit()  }
+                        style={[globalStyles.boton ,{backgroundColor:'#000'}]}
+                        full
                     >
-                        <Text style={styles.btnText}>Registrarse</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+                        <Text style={globalStyles.botonTexto}>Registrarse</Text>
+                    </Button>
             <Thumbnail
                 style={styles.logoFooter} 
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
             />
-        </View>
+            <Footer>
+                <FooterTab>
+                    <Button
+                        onPress={ () => navigation.navigate("Login")  }
+                        style={[globalStyles.boton]}
+                        full
+                    >
+                        <Text style={globalStyles.botonTexto}>Regresar</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
+        </Container>
     )
 }
 
@@ -241,13 +234,6 @@ const styles = StyleSheet.create({
     contenido: {
         flexDirection: 'column',
         justifyContent: 'center'
-    },
-    logo: {
-        
-        width: '100%',
-        height: 200,
-        marginTop: '10%'
-      
     },
     logoFooter: {
         marginTop: '10%',

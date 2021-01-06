@@ -7,8 +7,11 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
+import globalStyles from '../styles/global';
+
 import {
-    Thumbnail
+    Thumbnail,
+    Button
 } from 'native-base';
 
 import firebase from './../firebase';
@@ -49,18 +52,6 @@ const Login = (props) => {
         
     }
 
-    // var userLog;
-    // firebase.user.onAuthStateChanged(function(user) {
-    //     if (user) {
-    //       userLog = true;
-    //       navigation.navigate("Logout");
-    //     } else {
-    //       userLog = false;
-    //     }
-    //    console.log(userLog);
-    //   });
-    
-
     return (
         <View>
             <Thumbnail
@@ -100,15 +91,14 @@ const Login = (props) => {
                         </TouchableOpacity>                   
                     </View>
                     <View style={styles.space}></View>
-                    <View style={styles.btnContainer}>
-                        <TouchableOpacity
-                            style={styles.userBtn}
-                            onPress={() => navigation.navigate("Reset")}
-                        >
-                            <Text style={styles.btnText}>Resetear</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
+                    <Button style={[ globalStyles.boton, { marginTop: 10, backgroundColor: '#000'}]}
+                            rounded
+                            block
+                            onPress={ () => navigation.navigate("Reset") }
+                        >
+                            <Text style={globalStyles.botonTexto}>Olvido su contraseña?</Text>
+                        </Button>
                 <Thumbnail
                     style={styles.logoFooter} 
                     source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 

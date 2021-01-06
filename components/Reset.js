@@ -8,6 +8,8 @@ import {
     Alert,
 } from 'react-native'
 
+import { Thumbnail } from 'native-base'
+
 import firebase from './../firebase';
 
 import { useNavigation } from '@react-navigation/native'
@@ -55,6 +57,10 @@ const Reset = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
+            <Thumbnail
+                style={styles.logoFooter} 
+                source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+            />
         </View>
     )
 }
@@ -103,7 +109,12 @@ const styles = StyleSheet.create({
     contenido: {
         flexDirection: 'column',
         justifyContent: 'center'
-    }
+    },
+    logoFooter: {
+        marginTop: '10%',
+        paddingTop: 100,
+        width: '100%',
+    },
 })
 
 export default Reset;

@@ -194,7 +194,7 @@ const App = () => {
                     name="Register"
                     component={Register}
                     options={{
-                      title: "Register"
+                      title: "Registro"
                     }}
                   />
                   <Stack.Screen
