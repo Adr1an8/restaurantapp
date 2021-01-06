@@ -12,7 +12,8 @@ import {
     Left,
     Button,
     Footer,
-    FooterTab
+    FooterTab,
+    Thumbnail
     
 } from 'native-base';
 
@@ -133,6 +134,10 @@ const ConsultaReserva = () => {
                         <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Eliminar</Text>
                     </Button>
             </Content>
+            <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
             <Footer>
                 <FooterTab>
                     <Button
@@ -153,7 +158,12 @@ const styles = StyleSheet.create({
 
     separadorTexto: {
         marginTop: 10
-    }
+    },
+    logoFooter: {
+        marginTop: 5,
+        paddingTop: 100,
+        width: '100%',
+    },
 })
 
 export default ConsultaReserva;

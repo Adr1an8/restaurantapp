@@ -98,10 +98,10 @@ const MenuMeseros = (props) => {
 
 const styles = StyleSheet.create({
     separador: {
-        backgroundColor: '#000',
+        backgroundColor: '#9c4221',
     },
     separadorTexto: {
-        color: '#FFDA00',
+        color: '#fff',
         fontWeight: 'bold',
         textTransform: 'uppercase'
     }

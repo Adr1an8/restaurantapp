@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Image } from 'react-native';
+import { Image, StyleSheet } from 'react-native';
 import {
     Container,
     Content,
@@ -11,7 +11,8 @@ import {
     H1,
     H4,
     Card,
-    CardItem
+    CardItem,
+    Thumbnail
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import globalStyles from '../styles/global';
@@ -48,7 +49,10 @@ const DetallePlatillo = () => {
                         </CardItem>
                     </Card>
                 </Content>
-    
+                <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
                 <Footer>
                     <FooterTab>
                         <Button
@@ -79,6 +83,10 @@ const DetallePlatillo = () => {
                 </Card>
             </Content>
             <Text style={globalStyles.subtitulo}>**Para realizar el pedido es necesario hacer Login**</Text>
+            <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
             <Footer>
                 <FooterTab>
                     <Button
@@ -93,5 +101,13 @@ const DetallePlatillo = () => {
      );
     
 }
+
+const styles = StyleSheet.create({
+    logoFooter: {
+        marginTop: 5,
+        paddingTop: 100,
+        width: '100%',
+    },
+})
  
 export default DetallePlatillo;

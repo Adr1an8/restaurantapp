@@ -1,5 +1,5 @@
 import React, {  useContext, useEffect, useState } from 'react';
-import {  Alert, TextInput } from 'react-native';
+import {  Alert, TextInput, StyleSheet } from 'react-native';
 import {
     Container,
     Content, 
@@ -12,7 +12,8 @@ import {
     Button,
     H1, 
     Footer, 
-    FooterTab
+    FooterTab,
+    
 } from 'native-base';
 import { useNavigation } from '@react-navigation/native'
 import globalStyles from '../styles/global';
@@ -158,6 +159,10 @@ const ResumenPedido = () => {
                     <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Seguir Pidiendo</Text>
                 </Button>
             </Content>
+            <Thumbnail
+                        style={styles.logoFooter} 
+                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                    />
             <Footer>
                 <FooterTab>
                     <Button
@@ -173,5 +178,13 @@ const ResumenPedido = () => {
         </Container>
      );
 }
+
+const styles = StyleSheet.create({
+    logoFooter: {
+        marginTop: 5,
+        paddingTop: 100,
+        width: '100%',
+    },
+})
  
 export default ResumenPedido;
