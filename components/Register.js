@@ -12,7 +12,10 @@ import {
     Content,
     Footer,
     FooterTab,
-    Button
+    Button,
+    ListItem,
+    CheckBox,
+    Body
 } from 'native-base';
 
 import firebase from './../firebase';
@@ -27,6 +30,7 @@ const Register = (props) => {
     const [names, setNames] = useState('');
     const [identification, setIdentification] = useState('');
     const [address, setAddress] = useState('');
+    const [acept, setAcept] = useState(false);
 
     const navigation = useNavigation();
 
@@ -90,6 +94,10 @@ const Register = (props) => {
                 { text: 'Revisar', style: 'cancel' }
             ]
         )
+
+    }
+
+    const terminosCondiciones = () => {
 
     }
 
@@ -163,14 +171,41 @@ const Register = (props) => {
                     value={address}
                     maxLength={60}
                 />
+                
             </Content>
-            <Button
+            <ListItem>
+                    <CheckBox 
+                        checked={acept} 
+                        onPress={ () => setAcept(!acept)}
+                    
+                    />
+                    <Body>
+                        <Text>Aceptar terminos y condiciones</Text>
+                    </Body>
+                </ListItem>
+            { acept === true && (
+                <>
+                    <Button
                         onPress={ () => submit()  }
                         style={[globalStyles.boton ,{backgroundColor:'#000'}]}
                         full
                     >
                         <Text style={globalStyles.botonTexto}>Registrarse</Text>
                     </Button>
+                </>
+                )
+            }
+            { acept === false && (
+                <>
+                    <Button
+                        style={[globalStyles.boton ,{backgroundColor:'gray'}]}
+                        full
+                    >
+                        <Text style={globalStyles.botonTexto}>Registrarse</Text>
+                    </Button>
+                </>
+                )
+            }
             <Thumbnail
                 style={styles.logoFooter} 
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
