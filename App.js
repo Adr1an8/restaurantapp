@@ -31,11 +31,13 @@ import BotonResumen from './components/ui/BotonResumen';
 import BotonResumenMeseros from './components/ui/BotonResumenMeseros';
 import BotonLogin from './components/ui/BotonLogin';
 
+
 //Login
 import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
 import Reset from './components/Reset';
+import TerminosCondiciones from './components/TerminosCondiciones';
 
 // Pago
 import PagoPedido from './views/PagoPedido';
@@ -190,6 +192,15 @@ const App = () => {
                       title: "Login"
                     }}
                   />
+                  
+                  <Stack.Screen
+                    name="TerminosCondiciones"
+                    component={TerminosCondiciones}
+                    options={{
+                      title: "Términos y Condiciones"
+                    }}
+                  />
+
                   <Stack.Screen
                     name="Register"
                     component={Register}

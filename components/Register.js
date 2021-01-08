@@ -97,10 +97,6 @@ const Register = (props) => {
 
     }
 
-    const terminosCondiciones = () => {
-
-    }
-
     return (
         <Container style={globalStyles.contenedor}>
             <Content style={globalStyles.contenido}>
@@ -173,16 +169,21 @@ const Register = (props) => {
                 />
                 
             </Content>
-            <ListItem>
+            <ListItem
+                onPress={ () => {
+                    navigation.navigate("TerminosCondiciones");
+                }}
+            >
                     <CheckBox 
                         checked={acept} 
                         onPress={ () => setAcept(!acept)}
                     
                     />
                     <Body>
-                        <Text>Aceptar terminos y condiciones</Text>
+                        <Text style={styles.welcome}>Aceptar terminos y condiciones</Text>
                     </Body>
                 </ListItem>
+                
             { acept === true && (
                 <>
                     <Button
@@ -233,10 +234,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffff00'
     },
     welcome: {
-        fontSize: 30,
         textAlign: 'center',
-        color: '#000',
-        margin: 10,
+        color: 'blue',
     },
     input: {
         width: '100%',
