@@ -71,7 +71,8 @@ const Register = (props) => {
                                                 telefono: phone,
                                                 direccion: address,
                                                 rol: 'Cliente',
-                                                existencia: true
+                                                existencia: true,
+                                                terminosAceptados: true
                                             });
                                         }catch(error){
                                             console.log(error);

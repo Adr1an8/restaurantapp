@@ -62,7 +62,7 @@ const ResumenReserva = (props) => {
                 <Card>
                     <CardItem>
                         <Left><Text>Fecha:</Text></Left>
-                        <Body><Text>{props.route.params.saveReserva.datetime}</Text></Body>
+                        <Body><Text>{props.route.params.saveReserva.diahoraReserva}</Text></Body>
                     </CardItem>
                     <CardItem>
                         <Left><Text>Nombre:</Text></Left>

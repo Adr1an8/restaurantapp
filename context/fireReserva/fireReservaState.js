@@ -24,6 +24,7 @@ const FireReservaState = props => {
         // consultar firebase
         firebase.db
             .collection('reservas')
+            .where('activo', '==', true)
             .onSnapshot(manejarSnapshot);
 
         function manejarSnapshot(snapshot) {

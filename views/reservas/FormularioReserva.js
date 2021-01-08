@@ -86,8 +86,8 @@ const FormularioReserva = (props) => {
     const progresoReserva = () => {
 
         const reservDate = formatDate(date,time);
-        const nowDate = moment().format('DD/MM/YYYY HH:MM');
-
+        const nowDate = moment();
+        const dateNow = moment().format();
         const validate = (email) => {
             const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
         
@@ -99,8 +99,8 @@ const FormularioReserva = (props) => {
             email: state.email,
             phone: state.phone,
             personas: state.personas,
-            datetime: reservDate,
-            datetimenow: nowDate,
+            diahoraReserva: reservDate,
+            diahoraPedidoReserva: dateNow,
             detail: state.detail,
             activo: true,
         }
@@ -112,11 +112,10 @@ const FormularioReserva = (props) => {
         }
         else if(reservaObj.personas > 40){
             Alert.alert("Sobrepaso el numero de personas");
-        }
-        else if(!validate(reservaObj.email)){
+        }else if(date <= nowDate){
+            Alert.alert("Ingresar una fecha valida");
+        }else if(!validate(reservaObj.email)){
             Alert.alert("Correo mal ingresado");
-        }else if(reservaObj.datetime < reservaObj.datetimenow){
-            Alert.alert("Ingrese una fecha valida");
         }else{
             Alert.alert("Ingresado con Exito");
             props.navigation.navigate("ResumenReserva",{saveReserva:reservaObj});
@@ -133,13 +132,7 @@ const FormularioReserva = (props) => {
                     text: 'Confirmar',
                     onPress: async () => {
                         const reservDate = formatDate(date,time);
-                        const nowDate = moment().format('MMMM Do YYYY, h:mm:ss a');
-
-                        const validate = (email) => {
-                            const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
-                        
-                            return expression.test(String(email).toLowerCase())
-                        }
+                        const dateNow = moment().format();
 
                         try {
                             const reserva = await firebase.db.collection('reservas')
@@ -149,8 +142,8 @@ const FormularioReserva = (props) => {
                                 email: state.email,
                                 phone: state.phone,
                                 personas: state.personas,
-                                datetime: reservDate,
-                                datetimenow: nowDate,
+                                diahoraReserva: reservDate,
+                                diahoraPedidoReserva: dateNow,
                                 detail: state.detail,
                                 activo: true,
                             })

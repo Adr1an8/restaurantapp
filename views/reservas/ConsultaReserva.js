@@ -13,7 +13,8 @@ import {
     Button,
     Footer,
     FooterTab,
-    Thumbnail
+    Thumbnail,
+    CheckBox
     
 } from 'native-base';
 
@@ -30,45 +31,41 @@ const ConsultaReserva = () => {
 
     const [reserva, setReserva] = useState([]);
 
-    if(reservacion){
-        const getReservaById = async id => {
-            const dbRef = firebase.db.collection('reservas').doc(id)
-            const doc = await dbRef.get();
-            const reserva = doc.data();
-            setReserva({
-                ...reserva
-            })
-        }
-    
-        //Consultar reserva
-        useEffect(() => {
-            getReservaById(idreserva);
-            
-        }, []);
-    }
-
-
     // Hook para redireccionar
-    const navigation = useNavigation()
+    const navigation = useNavigation();
 
-    if ( !reservacion){
-        return(
-            <Text style={globalStyles.titulo}>No tiene una reservacion</Text>
-        )
-    }
+    useEffect(() => {
+        if(idreserva){
+            const getReservaById = async id => {
+                const dbRef = firebase.db.collection('reservas').doc(id)
+                const doc = await dbRef.get();
+                const reserva = doc.data();
+                setReserva({
+                    ...reserva
+                })
+
+            }
+            getReservaById(idreserva);
+        }
+    },[idreserva])
+    
 
     // Elimina un producto del arreglo de pedido
-    const confirmarEliminacion = () => {
+    const confirmarEliminacion = (id) => {
         Alert.alert(
-            'Desea eliminar la reserva',
-            'Una vez eliminada, no se prodra recuperar',
+            'Alerta',
+            'Su accion no se podra recuperar',
             [
                 {
                     text: 'Confirmar',
                     onPress: async () => {
 
                         try {
-                            await firebase.db.collection('reservas').doc(idreserva).delete();
+                            await firebase.db.collection('reservas')
+                            .doc(id)
+                            .update({
+                                activo: false,
+                            })
                             mostrarResumen(null);
 
                             // redireccionar a progreso
@@ -84,14 +81,20 @@ const ConsultaReserva = () => {
         )
     }
 
+    if ( !reservacion ){
+        return(
+            <Text style={globalStyles.titulo}>No tiene una reservacion</Text>
+        );
+    }
+
     return(
         <Container style={globalStyles.contenedor}>
             <Content style={{ backgroundColor: '#FFF' }}>
-            <Text style={globalStyles.titulo}>Resumen Reserva</Text>
+                <Text style={globalStyles.titulo}>Resumen Reserva</Text>
                 <Card>
                     <CardItem>
                         <Left><Text>Fecha:</Text></Left>
-                        <Body><Text>{reserva.datetime}</Text></Body>
+                        <Body><Text>{reserva.diahoraReserva}</Text></Body>
                     </CardItem>
                     <CardItem>
                         <Left><Text>Nombre:</Text></Left>
@@ -109,6 +112,22 @@ const ConsultaReserva = () => {
                         <Left><Text>N. Personas:</Text></Left>
                         <Body><Text>{reserva.personas}</Text></Body>    
                     </CardItem>
+                    {reserva.activo === true && (
+                        <>
+                            <CardItem>
+                                <Left><Text>Estado:</Text></Left>
+                                <Body><CheckBox checked={true} color="green"/></Body>    
+                            </CardItem>
+                        </>
+                    )}
+                    {reserva.activo === false && (
+                        <>
+                            <CardItem>
+                                <Left><Text>Estado:</Text></Left>
+                                <Body><CheckBox checked={true} color="red"/></Body>    
+                            </CardItem>
+                        </>
+                    )}
                 </Card>
                 <Card>
                     <CardItem>
@@ -118,37 +137,46 @@ const ConsultaReserva = () => {
                         <Text>{reserva.detail}</Text>
                     </CardItem>
                 </Card>
-                    <Button
-                        onPress={ () => navigation.navigate('FormularioReserva')  }
-                        style={[globalStyles.boton, styles.separadorTexto ]}
-                        full
-                    >
-                        <Text style={globalStyles.botonTexto}>Editar</Text>
-                    </Button>
-                    <Button
-                        onPress={ () => confirmarEliminacion() }
-                        full
-                        danger
-                        style={{marginTop: 20}}
-                    >
-                        <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Eliminar</Text>
-                    </Button>
+                {reserva.activo === true && (
+                        <>
+                             <Button
+                                onPress={ () => navigation.navigate('FormularioReserva')  }
+                                style={[globalStyles.boton, styles.separadorTexto ]}
+                                full
+                            >
+                                <Text style={globalStyles.botonTexto}>Editar</Text>
+                            </Button>
+                        </>
+                    )}
+               
+                <Button
+                    onPress={ () => confirmarEliminacion(idreserva) }
+                    full
+                    danger
+                    style={{marginTop: 20}}
+                >
+                    <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Eliminar</Text>
+                </Button>            
             </Content>
             <Thumbnail
                         style={styles.logoFooter} 
                         source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
                     />
-            <Footer>
-                <FooterTab>
-                    <Button
-                        onPress={ () => navigation.navigate('InicioReserva')  }
-                        style={[globalStyles.boton ]}
-                        full
-                    >
-                        <Text style={globalStyles.botonTexto}>Regresar</Text>
-                    </Button>
-                </FooterTab>
-            </Footer>
+            {reserva.activo === true && (
+                <>
+                    <Footer>
+                        <FooterTab>
+                            <Button
+                                onPress={ () => navigation.navigate('InicioReserva')  }
+                                style={[globalStyles.boton ]}
+                                full
+                            >
+                                <Text style={globalStyles.botonTexto}>Regresar</Text>
+                            </Button>
+                        </FooterTab>
+                    </Footer>
+                </>
+            )}
 
         </Container>
     )
