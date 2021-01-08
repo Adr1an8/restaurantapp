@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, View } from 'react-native';
  
-// import Pdf from 'react-native-pdf';
+import Pdf from 'react-native-pdf';
  
 const TerminosCondiciones = () => {
 
@@ -9,7 +9,7 @@ const TerminosCondiciones = () => {
 
     return (
         <View style={styles.container}>
-            {/* <Pdf
+            <Pdf
                 source={source}
                 onLoadComplete={(numberOfPages,filePath)=>{
                     console.log(`number of pages: ${numberOfPages}`);
@@ -23,7 +23,7 @@ const TerminosCondiciones = () => {
                 onPressLink={(uri)=>{
                     console.log(`Link presse: ${uri}`)
                 }}
-                style={styles.pdf}/> */}
+                style={styles.pdf}/> 
         </View>
     )
 

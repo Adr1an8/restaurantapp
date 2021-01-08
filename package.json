@@ -13,6 +13,8 @@
     "@react-native-community/datetimepicker": "^3.0.4",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/picker": "^1.8.1",
+    "@react-native-community/progress-bar-android": "^1.0.4",
+    "@react-native-community/progress-view": "^1.2.3",
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "axios": "^0.21.1",
@@ -27,11 +29,13 @@
     "react-moment": "^1.0.0",
     "react-native": "^0.63.2",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-pdf": "^6.2.2",
     "react-native-reanimated": "^1.13.0",
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
     "react-native-vector-icons": "^7.0.0",
-    "reactfire": "^2.0.3"
+    "reactfire": "^2.0.3",
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "7.11.6",
