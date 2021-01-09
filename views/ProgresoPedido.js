@@ -129,14 +129,14 @@ const ProgresoPedido = () => {
                 { completado && (
                     <>
                         <H1 style={styles.textoCompletado}>Orden Lista</H1>
-                        <H3 style={styles.textoCompletado}>Por favor, pase a recoger su pedido</H3>
+                        <H3 style={styles.textoCompletado}>Su orden ya esta en camino!</H3>
 
                         <Button style={[ globalStyles.boton, { marginTop: 100}]}
                             rounded
                             block
                             onPress={ () => navigation.navigate("NuevaOrden") }
                         >
-                            <Text style={globalStyles.botonTexto}>Comenzar Una Orden Nueva</Text>
+                            <Text style={globalStyles.botonTexto}>Inicio</Text>
                         </Button>
                         <Thumbnail
                         style={styles.logoFooter} 
