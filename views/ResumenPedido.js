@@ -71,18 +71,21 @@ const ResumenPedido = () => {
                             mesa: state.mesa
                         }
 
-                        try {
-                            const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
-                            pedidoRealizado(pedido.id);
-
-                            // redireccionar a progreso
-                            navigation.navigate("ProgresoPedido")
-                        } catch (error) {
-                            console.log(error);
+                        if(!pedidoObj.mesa){
+                            Alert.alert("Debe ingresar una mesa");
+                        }else if (pedidoObj.mesa > 25 ){
+                            Alert.alert("Solo existen 25 mesas");
+                        }else{
+                            try {
+                                const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
+                                pedidoRealizado(pedido.id);
+    
+                                // redireccionar a progreso
+                                navigation.navigate("ProgresoPedido")
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }
-
-
-                      
                     }
                 }, 
                 { text: 'Revisar', style: 'cancel'}
