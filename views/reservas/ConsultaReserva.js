@@ -112,11 +112,19 @@ const ConsultaReserva = () => {
                         <Left><Text>N. Personas:</Text></Left>
                         <Body><Text>{reserva.personas}</Text></Body>    
                     </CardItem>
-                    {reserva.activo === true && (
+                    {reserva.pendingAprobe === false && (
                         <>
                             <CardItem>
                                 <Left><Text>Estado:</Text></Left>
-                                <Body><CheckBox checked={true} color="green"/></Body>    
+                                <Body><CheckBox checked={true} color="orange"/></Body>    
+                            </CardItem>
+                        </>
+                    )}
+                     {reserva.pendingAprobe === true && (
+                        <>
+                            <CardItem>
+                                <Left><Text>Estado:</Text></Left>
+                                <Body><CheckBox checked={false} color="green"/></Body>    
                             </CardItem>
                         </>
                     )}

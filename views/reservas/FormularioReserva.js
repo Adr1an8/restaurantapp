@@ -103,6 +103,7 @@ const FormularioReserva = (props) => {
             diahoraPedidoReserva: dateNow,
             detail: state.detail,
             activo: true,
+            pendingAprobe: false,
         }
 
         if(!reservaObj.nombre || !reservaObj.phone || !reservaObj.personas){
