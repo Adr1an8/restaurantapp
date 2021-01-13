@@ -19,6 +19,9 @@ import { useNavigation } from '@react-navigation/native'
 import globalStyles from '../styles/global';
 import firebase from '../firebase';
 
+import 'moment-timezone';
+import moment from 'moment';
+
 import PedidoContext from '../context/pedidos/pedidosContext';
 
 const ResumenPedido = () => {
@@ -60,6 +63,8 @@ const ResumenPedido = () => {
                     text: 'Confirmar',
                     onPress: async () => {
 
+                        const dateNow = moment().format();
+
                         // crear un objeto
                         const pedidoObj = {
                             tiempoentrega: 0,
@@ -67,7 +72,7 @@ const ResumenPedido = () => {
                             cancelado: false,
                             total: Number(total),
                             orden: pedido, // array
-                            creado: Date.now(),
+                            creado: dateNow,
                             mesa: state.mesa
                         }
 
