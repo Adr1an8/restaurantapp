@@ -124,7 +124,7 @@ const ConsultaReserva = () => {
                         <>
                             <CardItem>
                                 <Left><Text>Estado:</Text></Left>
-                                <Body><CheckBox checked={false} color="green"/></Body>    
+                                <Body><CheckBox checked={true} color="green"/></Body>    
                             </CardItem>
                         </>
                     )}
