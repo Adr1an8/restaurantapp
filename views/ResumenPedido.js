@@ -70,6 +70,7 @@ const ResumenPedido = () => {
                             tiempoentrega: 0,
                             completado: false,
                             cancelado: false,
+                            pendienteDespacho: false,
                             total: Number(total),
                             orden: pedido, // array
                             creado: dateNow,

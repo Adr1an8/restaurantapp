@@ -32,10 +32,30 @@ const ResumenPedido = () => {
     const { pedido, total, mostrarResumen, eliminarProducto, pedidoRealizado } = useContext(PedidoContext);
 
     const [state, setState] = useState(initialState);
+
+    //state para obtener los productos
+    const [productos, setProductos] = useState([]);
     
     useEffect(() => {
         calcularTotal();
+        firebase.db.collection("productos").onSnapshot((querySnapshot) => {
+            const productos = [];
+            querySnapshot.docs.forEach((doc) => {
+              const { cantidad, descripcion, nombre, plato } = doc.data();
+              productos.push({
+                id: doc.id,
+                nombre,
+                plato,
+                descripcion,
+                cantidad,
+              });
+            });
+            setProductos(productos);
+        });
+        
     }, [pedido]);
+    
+    console.log(productos);
 
     const calcularTotal = () => {
         let nuevoTotal = 0;
@@ -64,6 +84,7 @@ const ResumenPedido = () => {
                             tiempoentrega: 0,
                             completado: false,
                             cancelado: false,
+                            pendienteDespacho: false,
                             total: Number(total),
                             orden: pedido, // array
                             creado: Date.now(),

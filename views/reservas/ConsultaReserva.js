@@ -116,7 +116,7 @@ const ConsultaReserva = () => {
                         <>
                             <CardItem>
                                 <Left><Text>Estado:</Text></Left>
-                                <Body><CheckBox checked={true} color="orange"/></Body>    
+                                <Body><CheckBox checked={true} color="orange"/><Text>Pendiente de aprobacion</Text></Body>    
                             </CardItem>
                         </>
                     )}
@@ -124,7 +124,7 @@ const ConsultaReserva = () => {
                         <>
                             <CardItem>
                                 <Left><Text>Estado:</Text></Left>
-                                <Body><CheckBox checked={true} color="green"/></Body>    
+                                <Body><CheckBox checked={true} color="green"/><Text>Aprobado</Text></Body>    
                             </CardItem>
                         </>
                     )}
@@ -132,7 +132,7 @@ const ConsultaReserva = () => {
                         <>
                             <CardItem>
                                 <Left><Text>Estado:</Text></Left>
-                                <Body><CheckBox checked={true} color="red"/></Body>    
+                                <Body><CheckBox checked={true} color="red"/><Text>Terminada</Text></Body>    
                             </CardItem>
                         </>
                     )}

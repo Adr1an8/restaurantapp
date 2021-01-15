@@ -9,7 +9,11 @@ import {
     Text,
     Body,
     Button,
-    Thumbnail
+    Thumbnail,
+    CheckBox,
+    CardItem,
+    Left
+
 } from 'native-base';
 import globalStyles from '../../styles/global';
 
@@ -34,7 +38,7 @@ const VerOrdenesMeseros = (props) => {
             <Content style={{ backgroundColor: '#FFF' }}>
                 <List>
                     {ordenes.map( (ordenado, i) => {
-                        const { mesa, orden, total, id} = ordenado;
+                        const { mesa, orden, total, id, pendienteDespacho} = ordenado;
                         return (
                             <Fragment key={id}>
                                 <Text style={globalStyles.subtitulo}> Mesa#: {mesa}</Text>
@@ -59,6 +63,22 @@ const VerOrdenesMeseros = (props) => {
                                         <Text>Precio: $ {total} </Text>
                                     </Body>
                                 </ListItem>
+                                {pendienteDespacho === false && (
+                                        <>
+                                            <CardItem>
+                                                <Left><Text>Estado:</Text></Left>
+                                                <Body><CheckBox checked={true} color="orange"/><Text>Cocinando...</Text></Body>    
+                                            </CardItem>
+                                        </>
+                                    )}
+                                    {pendienteDespacho === true && (
+                                        <>
+                                            <CardItem>
+                                                <Left><Text>Estado:</Text></Left>
+                                                <Body><CheckBox checked={true} color="green"/><Text>Despachar...</Text></Body>    
+                                            </CardItem>
+                                        </>
+                                    )}
                             </Fragment>
                         )
                     })}

@@ -113,8 +113,6 @@ const FormularioReserva = (props) => {
         }
         else if(reservaObj.personas > 40){
             Alert.alert("Sobrepaso el numero de personas");
-        }else if(date <= nowDate){
-            Alert.alert("Ingresar una fecha valida");
         }else if(!validate(reservaObj.email)){
             Alert.alert("Correo mal ingresado");
         }else{
