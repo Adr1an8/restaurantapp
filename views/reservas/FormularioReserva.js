@@ -127,7 +127,7 @@ const FormularioReserva = (props) => {
 
         Alert.alert(
             'Desea editar su reserva',
-            'Por Favor llegar con tiempo de anticipación a su reserva',
+            'Por favor llegar con tiempo de anticipación a su reserva',
             [
                 {
                     text: 'Confirmar',

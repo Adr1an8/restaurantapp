@@ -1,14 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native'
-import { Container, Text, H1, H3, Button, Footer, FooterTab, Thumbnail } from 'native-base';
+import { WebView } from 'react-native-webview';
+import { StyleSheet, View, Alert } from 'react-native'
+import {
+    Container,
+    Text,
+    Body,
+    Footer,
+    FooterTab,
+    Button,
+    Thumbnail,
+    H1,
+    H3
+} from 'native-base';
 import globalStyles from '../styles/global';
+
 import { useNavigation } from '@react-navigation/native';
 import PedidoContext from '../context/pedidos/pedidosContext';
 import firebase from '../firebase';
 import Countdown from 'react-countdown';
-import axios from 'axios';
 
-const ProgresoPedido = () => {
+const PagoTarjeta = (props) => {
 
     const navigation = useNavigation();
 
@@ -27,14 +38,7 @@ const ProgresoPedido = () => {
                         })
         }
 
-        // const obtenerCheckOutId = async () => {
-        //     const url = 'https://test.oppwa.com';
-        //     const resultado = await axios.post(url);
-        //     console.log(resultado);
-        // }
-
         obtenerProducto()
-        // obtenerCheckOutId()
     }, []);
 
     // Muestra el countdown en la pantalla
@@ -44,53 +48,15 @@ const ProgresoPedido = () => {
         )
     }
 
-    // Redirecciona a la selección del método de pago
-    const pagoPedido = () => {
-        Alert.alert(
-            'Revisa tu pedido',
-            'Una vez que procedas al pago no podrás editar tu consumo',
-            [
-                {
-                    text: 'Confirmar',
-                    onPress: async () => {
-
-                        // crear un objeto
-                        // const pagoObj = {
-                        //     tiempoentrega: 0,
-                        //     completado: false,
-                        //     total: Number(total),
-                        //     orden: pedido, // array
-                        //     editado: Date.now(),
-                        //     mesa: state.mesa
-                        // }
-
-                        console.log('Al Pago');
-
-                        try {
-                            // redireccionar a selección de método de pago
-                            navigation.navigate("PagoPedido")
-                        } catch (error) {
-                            console.log(error);
-                        }
-                      
-                    }
-                }, 
-                { text: 'Revisar', style: 'cancel'}
-            ]
-        )
-    }
-
-    return ( 
-         <Container style={globalStyles.contenedor}>
-             <View style={[ globalStyles.contenido, { marginTop: 50} ]}>
+    if(firebase.user.currentUser){
+        return (
+            <Container style={globalStyles.contenedor}>
+                               
+                <View style={[ globalStyles.contenido, { marginTop: 50} ]}>
                 { tiempo === 0 && (
                     <>
                         <Text style={{ textAlign: 'center'}}>Hemos recibido tu orden...</Text>
-                        <Text style={{ textAlign: 'center'}}>Estamos calculando el tiempo de entrega</Text>
-                        <Thumbnail
-                        style={styles.logoFooter} 
-                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
-                    />
+                        <Text style={{ textAlign: 'center'}}>Estamos calculando el tiempo de entrega</Text>                       
                     </>
                 ) }
                 
@@ -103,10 +69,10 @@ const ProgresoPedido = () => {
                                 renderer={renderer}
                             />
                         </Text>
-                        <Thumbnail
+                        {/* <Thumbnail
                         style={styles.logoFooter} 
                         source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
-                    />
+                    /> */}
                     </>
                 )} 
 
@@ -119,10 +85,10 @@ const ProgresoPedido = () => {
                                 renderer={renderer}
                             />
                         </Text>
-                        <Thumbnail
+                        {/* <Thumbnail
                         style={styles.logoFooter} 
                         source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
-                    />
+                    /> */}
                     </>
                 )} 
 
@@ -131,33 +97,39 @@ const ProgresoPedido = () => {
                         <H1 style={styles.textoCompletado}>Orden Lista</H1>
                         <H3 style={styles.textoCompletado}>Por favor, pase a recoger su pedido</H3>
 
-                        <Button style={[ globalStyles.boton, { marginTop: 100}]}
+                        {/* <Button style={[ globalStyles.boton, { marginTop: 100}]}
                             rounded
                             block
                             onPress={ () => navigation.navigate("NuevaOrden") }
                         >
                             <Text style={globalStyles.botonTexto}>Comenzar Una Orden Nueva</Text>
-                        </Button>
-                        <Thumbnail
-                        style={styles.logoFooter} 
-                        source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
-                    />
+                        </Button> */}
+                        
                     </>
                 ) }
+                <WebView
+                        source={{ uri: "https://0d6288a71451.ngrok.io" }}
+                        injectedJavaScript={`document.getElementById('inject').innerHTML = '<form name="f1" action="/paypal"><input type="hidden" name="source" value="${props.route.params.totalPagar}"/><button type="submit" style="background-color: #000000; color: white; text-align: center; border-radius: 10px; font-size: 16px; width:200px; height: 50px;">PROCEDER AL PAGO</button></form>'`}                  
+                    />
              </View>
-             <Footer>
-                <FooterTab>
-                    <Button
-                        onPress={ () => pagoPedido()  }
-                        style={[globalStyles.boton]}
-                        full
-                    >
-                        <Text style={globalStyles.botonTexto}>Proceder al pago</Text>
-                    </Button>
-                </FooterTab>
-            </Footer>
-         </Container>
-     );
+             <Thumbnail
+                    style={styles.logoFooter} 
+                    source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
+                />
+                <Footer>
+                    <FooterTab>
+                        <Button
+                            onPress={ () => navigation.navigate("Principal")  }
+                            style={[globalStyles.boton]}
+                            full
+                        >
+                        <Text style={globalStyles.botonTexto}>Ir a Inicio</Text>
+                        </Button>
+                    </FooterTab>
+                </Footer>
+            </Container>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -165,7 +137,8 @@ const styles = StyleSheet.create({
         marginTop: 5,
         paddingTop: 100,
         width: '100%',
+        
     },
 })
- 
-export default ProgresoPedido;
+
+export default PagoTarjeta;

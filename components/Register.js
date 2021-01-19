@@ -90,7 +90,6 @@ const Register = (props) => {
                 { text: 'Revisar', style: 'cancel' }
             ]
         )
-
     }
 
     return (
@@ -165,12 +164,12 @@ const Register = (props) => {
                 />
             </Content>
             <Button
-                        onPress={ () => submit()  }
-                        style={[globalStyles.boton ,{backgroundColor:'#000'}]}
-                        full
-                    >
-                        <Text style={globalStyles.botonTexto}>Registrarse</Text>
-                    </Button>
+                onPress={ () => submit()  }
+                style={[globalStyles.boton ,{backgroundColor:'#000'}]}
+                full
+            >
+                <Text style={globalStyles.botonTexto}>Registrarse</Text>
+            </Button>
             <Thumbnail
                 style={styles.logoFooter} 
                 source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/restaurant-fc4d0.appspot.com/o/la-campi%C3%B1alogo-dise%C3%B1os-b.png?alt=media&token=92f465d6-74c2-4e41-8bdb-c38485436fc6' }} 
