@@ -9,7 +9,7 @@ import Menu from './views/Menu';
 import DetallePlatillo from './views/DetallePlatillo';
 import FormularioPlatillo from './views/FormularioPlatillo';
 import ResumenPedido from './views/ResumenPedido';
-import ProgresoPedido from './views/ProgresoPedido';
+import PagoEfectivo from './views/PagoEfectivo';
 import Principal from './views/Principal';
 
 // vista meseros 
@@ -40,7 +40,7 @@ import Reset from './components/Reset';
 import TerminosCondiciones from './components/TerminosCondiciones';
 
 // Pago
-import PagoPedido from './views/PagoPedido';
+import PagoTarjeta from './views/PagoTarjeta';
 
 // importar state de context
 import FirebaseState from './context/firebase/firebaseState';
@@ -49,6 +49,8 @@ import FireMeseroState from './context/fireMeseros/fireMeseroState';
 import PedidoState from './context/pedidos/pedidosState';
 import ReservaState from './context/reservas/reservasState';
 import UserState from './context/user/userState';
+
+import PerfilUsuario from './views/perfiles/PerfilUsuario';
 
 const Stack = createStackNavigator();
 
@@ -163,7 +165,7 @@ const App = () => {
                     name="FormularioReserva"
                     component={FormularioReserva}
                     options={{
-                      title: "Formulario Reserva",
+                      title: "Formulario de la Reserva",
                       //headerRight: props => <BotonResumen />
                     }}
                   />
@@ -172,7 +174,7 @@ const App = () => {
                     name="ConsultaReserva"
                     component={ConsultaReserva}
                     options={{
-                      title: "Consulta Reserva",
+                      title: "Consulta de la Reserva",
                       //headerRight: props => <BotonResumen />
                     }}
                   />
@@ -181,7 +183,7 @@ const App = () => {
                     name="DetallePlatillo"
                     component={DetallePlatillo}
                     options={{
-                      title: "Detalle Platillo"
+                      title: "Detalle del Platillo"
                     }}
                   />
 
@@ -189,7 +191,7 @@ const App = () => {
                     name="Login"
                     component={Login}
                     options={{
-                      title: "Login"
+                      title: "Inicio de Sesión"
                     }}
                   />
                   
@@ -212,7 +214,7 @@ const App = () => {
                     name="Logout"
                     component={Logout}
                     options={{
-                      title: "Logout"
+                      title: "Cerrar Sesión"
                     }}
                   />
 
@@ -228,30 +230,30 @@ const App = () => {
                     name="ResumenPedido"
                     component={ResumenPedido}
                     options={{
-                      title: "Resumen Pedido"
+                      title: "Resumen del Pedido"
                     }}
                   />
 
                   <Stack.Screen
-                    name="ProgresoPedido"
-                    component={ProgresoPedido}
+                    name="PagoEfectivo"
+                    component={PagoEfectivo}
                     options={{
-                      title: "Progreso de Pedido"
+                      title: "Pago con efectivo"
                     }}
                   />
                   <Stack.Screen
                     name="ResumenReserva"
                     component={ResumenReserva}
                     options={{
-                      title: "Resumen Reserva"
+                      title: "Resumen de la Reserva"
                     }}
                   />
 
                   <Stack.Screen
-                    name="PagoPedido"
-                    component={PagoPedido}
+                    name="PagoTarjeta"
+                    component={PagoTarjeta}
                     options={{
-                      title: "Inicia el pago del pedido",
+                      title: "Pago mediante PayPal",
                     }}
                   />
 
@@ -263,6 +265,13 @@ const App = () => {
                     }}
                   />
 
+                  <Stack.Screen
+                    name="PerfilUsuario"
+                    component={PerfilUsuario}
+                    options={{
+                      title: "Edición del perfil del usuario",
+                    }}
+                  />
                 </Stack.Navigator>
               </NavigationContainer>
               </UserState>

@@ -18,6 +18,7 @@ import {
 import { useNavigation } from '@react-navigation/native'
 import globalStyles from '../styles/global';
 import firebase from '../firebase';
+import { Picker } from '@react-native-community/picker';
 
 import 'moment-timezone';
 import moment from 'moment';
@@ -29,7 +30,8 @@ const ResumenPedido = () => {
     const navigation = useNavigation();
 
     const initialState = {
-        mesa: ""
+        mesa: "",
+        formaPago: "inicial"
     }
 
     // context de pedido
@@ -46,7 +48,6 @@ const ResumenPedido = () => {
         nuevoTotal = pedido.reduce( (nuevoTotal, articulo) => nuevoTotal + articulo.total, 0);
 
         mostrarResumen(nuevoTotal)
-
     }
 
     const handleChangeText = (value, name) => {
@@ -74,7 +75,9 @@ const ResumenPedido = () => {
                             total: Number(total),
                             orden: pedido, // array
                             creado: dateNow,
-                            mesa: state.mesa
+                            mesa: state.mesa,
+                            formaPago: state.formaPago,
+                            estado: 'Pendiente'
                         }
 
                         if(!pedidoObj.mesa){
@@ -82,15 +85,19 @@ const ResumenPedido = () => {
                         }else if (pedidoObj.mesa > 25 ){
                             Alert.alert("Solo existen 25 mesas");
                         }else{
-                            try {
-                                const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
-                                pedidoRealizado(pedido.id);
-    
-                                // redireccionar a progreso
-                                navigation.navigate("ProgresoPedido")
-                            } catch (error) {
-                                console.log(error);
-                            }
+
+                        try {
+                            const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
+                            pedidoRealizado(pedido.id);
+
+                            // redireccionar a progreso
+                            if(state.formaPago == "Efectivo"){
+                                navigation.navigate("PagoEfectivo")
+                            } else if(state.formaPago == "Tarjeta"){
+                                navigation.navigate("PagoTarjeta", { totalPagar: Number(total) })
+                            }                        
+                        } catch (error) {
+                            console.log(error);
                         }
                     }
                 }, 
@@ -120,7 +127,7 @@ const ResumenPedido = () => {
     return ( 
         <Container style={globalStyles.contenedor}>
             <Content style={globalStyles.contenido}>
-                <H1 style={globalStyles.titulo}>Resumen Pediddo</H1>
+                <H1 style={globalStyles.titulo}>Resumen Pedido</H1>
                 {pedido.map( (platillo, i) => {
                     const { cantidad, nombre, imagen, id, precio } = platillo;
                     return( 
@@ -167,6 +174,14 @@ const ResumenPedido = () => {
                 >
                     <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Seguir Pidiendo</Text>
                 </Button>
+                <Picker
+                    selectedValue = { state.formaPago }
+                    onValueChange = { (value) => { handleChangeText(value, "formaPago") } }
+                >
+                    <Picker.Item label="- Seleccione el método de pago -" value="" />
+                    <Picker.Item label="Efectivo" value="Efectivo" />
+                    <Picker.Item label="Tarjeta de Crédito" value="Tarjeta" />
+                </Picker>
             </Content>
             <Thumbnail
                         style={styles.logoFooter} 
@@ -178,6 +193,7 @@ const ResumenPedido = () => {
                         onPress={ () => progresoPedido()  }
                         style={[globalStyles.boton ]}
                         full
+                        disabled={ state.formaPago == "inicial" }
                     >
                         <Text style={globalStyles.botonTexto}>Ordenar Pedido</Text>
                     </Button>
