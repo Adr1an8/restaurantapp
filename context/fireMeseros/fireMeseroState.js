@@ -25,7 +25,6 @@ const FireMeseroState = props => {
         firebase.db
             .collection('ordenes')
             .where('completado', '==', false) // traer solo los que esten en existencia
-            .where('cancelado', '==', false)
             .onSnapshot(manejarSnapshot);
 
         function manejarSnapshot(snapshot) {

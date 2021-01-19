@@ -38,13 +38,15 @@ const VerOrdenesMeseros = (props) => {
             <Content style={{ backgroundColor: '#FFF' }}>
                 <List>
                     {ordenes.map( (ordenado, i) => {
-                        const { mesa, orden, total, id, pendienteDespacho} = ordenado;
+                        const { mesa, orden, total, id, pendienteDespacho, formaPago, cancelado} = ordenado;
                         return (
                             <Fragment key={id}>
+                                <Content style={styles.borderOrdenes}>
                                 <Text style={globalStyles.subtitulo}> Mesa#: {mesa}</Text>
+                                <Text> Forma de pago: {formaPago}</Text>
                                 <ListItem
                                      onPress={ () => {
-                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden, idPedido:ordenes});
+                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden, idPedido:id});
                                       }}
                                 >
                                     <Body>
@@ -79,6 +81,23 @@ const VerOrdenesMeseros = (props) => {
                                             </CardItem>
                                         </>
                                     )}
+                                    {cancelado === false && (
+                                        <>
+                                            <CardItem>
+                                                <Left><Text>Orden Pagada:</Text></Left>
+                                                <Body><CheckBox checked={true} color="red"/><Text>No</Text></Body>    
+                                            </CardItem>
+                                        </>
+                                    )}
+                                    {cancelado === true && (
+                                        <>
+                                            <CardItem>
+                                                <Left><Text>Orden Pagada:</Text></Left>
+                                                <Body><CheckBox checked={true} color="green"/><Text>Si</Text></Body>    
+                                            </CardItem>
+                                        </>
+                                    )}
+                                </Content>
                             </Fragment>
                         )
                     })}
@@ -119,6 +138,11 @@ const styles = StyleSheet.create({
         paddingTop: 100,
         width: '100%',
     },
+    borderOrdenes: {
+        borderColor: 'black',
+        borderWidth: 2,
+        margin: 10
+    }
 })
  
 export default VerOrdenesMeseros;

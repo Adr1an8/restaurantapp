@@ -76,8 +76,7 @@ const ResumenPedido = () => {
                             orden: pedido, // array
                             creado: dateNow,
                             mesa: state.mesa,
-                            formaPago: state.formaPago,
-                            estado: 'Pendiente'
+                            formaPago: state.formaPago
                         }
 
                         if(!pedidoObj.mesa){
@@ -86,18 +85,19 @@ const ResumenPedido = () => {
                             Alert.alert("Solo existen 25 mesas");
                         }else{
 
-                        try {
-                            const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
-                            pedidoRealizado(pedido.id);
+                            try {
+                                const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
+                                pedidoRealizado(pedido.id);
 
-                            // redireccionar a progreso
-                            if(state.formaPago == "Efectivo"){
-                                navigation.navigate("PagoEfectivo")
-                            } else if(state.formaPago == "Tarjeta"){
-                                navigation.navigate("PagoTarjeta", { totalPagar: Number(total) })
-                            }                        
-                        } catch (error) {
-                            console.log(error);
+                                // redireccionar a progreso
+                                if(state.formaPago == "Efectivo"){
+                                    navigation.navigate("PagoEfectivo")
+                                } else if(state.formaPago == "Tarjeta"){
+                                    navigation.navigate("PagoTarjeta", { totalPagar: Number(total) })
+                                }                        
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }
                     }
                 }, 

@@ -23,12 +23,12 @@ const EditarOrdenMeseros = (props) => {
     const navigation = useNavigation();
 
     let idPedido = props.route.params.idPedido;
-    let pedidos = props.route.params.arrayPedido; 
+    let pedidos = props.route.params.arrayPedido;
 
     const EliminacionCompleta = () => {
         Alert.alert(
-            'Desea cancelar la orden',
-            'Una vez eliminado no se puede recuperar',
+            'Pago',
+            'Confirma que se ha realizado un pago?',
             [
                 {
                     text: 'Confirmar',
@@ -82,7 +82,7 @@ const EditarOrdenMeseros = (props) => {
                         danger
                         style={{marginTop: 20}}
                     >
-                        <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Eliminar</Text>
+                        <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Confirmar Pago</Text>
                     </Button>
             </Content>
             <Thumbnail
