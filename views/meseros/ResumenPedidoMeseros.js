@@ -41,12 +41,10 @@ const ResumenPedido = () => {
         firebase.db.collection("productos").onSnapshot((querySnapshot) => {
             const productos = [];
             querySnapshot.docs.forEach((doc) => {
-              const { cantidad, descripcion, nombre, plato } = doc.data();
+              const { cantidad, nombre } = doc.data();
               productos.push({
                 id: doc.id,
                 nombre,
-                plato,
-                descripcion,
                 cantidad,
               });
             });
