@@ -24,6 +24,7 @@ const EditarOrdenMeseros = (props) => {
 
     let idPedido = props.route.params.idPedido;
     let pedidos = props.route.params.arrayPedido;
+    let pagoPedido = props.route.params.ordenPagada;
 
     const EliminacionCompleta = () => {
         Alert.alert(
@@ -76,14 +77,18 @@ const EditarOrdenMeseros = (props) => {
                         </List>
                     )
                 })}
-                 <Button
-                        onPress={ () => EliminacionCompleta() }
-                        full
-                        danger
-                        style={{marginTop: 20}}
-                    >
-                        <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Confirmar Pago</Text>
-                    </Button>
+                 { pagoPedido === false  && (
+                     <Button
+                     onPress={ () => EliminacionCompleta() }
+                     full
+                     danger
+                     style={{marginTop: 20}}
+                 >
+                     <Text style={[globalStyles.botonTexto, { color: '#FFF'}]}>Confirmar Pago</Text>
+                 </Button>
+                 )
+
+                 }
             </Content>
             <Thumbnail
                 style={styles.logoFooter} 

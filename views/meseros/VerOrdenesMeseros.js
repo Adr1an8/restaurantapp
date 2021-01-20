@@ -32,7 +32,6 @@ const VerOrdenesMeseros = (props) => {
         obtenerOrdenes();
     }, []);
 
-
     return ( 
         <Container style={globalStyles.contenedor}>
             <Content style={{ backgroundColor: '#FFF' }}>
@@ -46,7 +45,7 @@ const VerOrdenesMeseros = (props) => {
                                 <Text> Forma de pago: {formaPago}</Text>
                                 <ListItem
                                      onPress={ () => {
-                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden, idPedido:id});
+                                          navigation.navigate("EditarOrdenesMeseros",{arrayPedido:orden, idPedido:id, ordenPagada: cancelado});
                                       }}
                                 >
                                     <Body>

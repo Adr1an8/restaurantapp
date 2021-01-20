@@ -52,8 +52,16 @@ const ResumenPedido = () => {
         });
         
     }, [pedido]);
-    
-    console.log(productos);
+
+    var arrayProducts = productos.map(a => a.nombre);
+    console.log(arrayProducts);
+
+    //other calls
+    var arrayPedidos = pedido.map(x => x.productos.value);
+    console.log(arrayPedidos);
+
+    let result = productos.filter(item => (arrayPedidos.includes(item.nombre)));
+    console.log(result);
 
     const calcularTotal = () => {
         let nuevoTotal = 0;
