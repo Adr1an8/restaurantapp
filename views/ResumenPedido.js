@@ -31,17 +31,68 @@ const ResumenPedido = () => {
 
     const initialState = {
         mesa: "",
-        formaPago: "inicial"
+        formaPago: "inicial",
+        arrayIdProductos: []
     }
 
     // context de pedido
     const { pedido, total, mostrarResumen, eliminarProducto, pedidoRealizado } = useContext(PedidoContext);
 
     const [state, setState] = useState(initialState);
+
+    //state para obtener los productos
+    const [productos, setProductos] = useState([]);
     
     useEffect(() => {
         calcularTotal();
+        firebase.db.collection("productos").onSnapshot((querySnapshot) => {
+            const productos = [];
+            querySnapshot.docs.forEach((doc) => {
+              const { cantidad, nombre } = doc.data();
+              productos.push({
+                id: doc.id,
+                nombre,
+                cantidad,
+              });
+            });
+            setProductos(productos);
+        });
     }, [pedido]);
+
+    const actualizarCantidadProductos = async () =>{
+        const arrayIdProdcutos = [];
+        let suma = 0;
+        let arregloCantidadElegida = [];
+        for(let i=0; i<pedido.length; i++){
+            const productoPedido = pedido.map(x => x.productos)[i];
+            for(let j=0; j<productos.length; j++){
+                if(productoPedido.includes(productos[j].nombre)){
+                    arregloCantidadElegida.push(pedido.map(x => x.cantidad)[i]);
+                    arrayIdProdcutos.push(productos[j].id);
+                    suma++;
+                }
+            }
+        }
+
+        for(let k=0; k<suma; k++){
+            try {
+                const dbRef = firebase.db.collection('productos').doc(arrayIdProdcutos[k])
+                const doc = await dbRef.get();
+                const cantidadBase = doc.data().cantidad;
+
+                const cantidadARestar = arregloCantidadElegida[k];
+                let nuevoTotal = cantidadBase - cantidadARestar;
+
+                const update = await dbRef.update({
+                    cantidad: nuevoTotal
+                })
+                
+                } catch (error) {
+                    console.log(error);
+                }  
+        }
+
+    }
 
     const calcularTotal = () => {
         let nuevoTotal = 0;
@@ -88,7 +139,7 @@ const ResumenPedido = () => {
                             try {
                                 const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
                                 pedidoRealizado(pedido.id);
-
+                                actualizarCantidadProductos();
                                 // redireccionar a progreso
                                 if(state.formaPago == "Efectivo"){
                                     navigation.navigate("PagoEfectivo")

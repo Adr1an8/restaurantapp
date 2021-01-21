@@ -20,12 +20,16 @@ import firebase from '../../firebase';
 
 import PedidoContext from '../../context/pedidos/pedidosContext';
 
+import 'moment-timezone';
+import moment from 'moment';
+
 const ResumenPedido = () => {
 
     const navigation = useNavigation();
 
     const initialState = {
-        mesa: ""
+        mesa: "",
+        arrayIdProductos: []
     }
 
     // context de pedido
@@ -53,15 +57,40 @@ const ResumenPedido = () => {
         
     }, [pedido]);
 
-    var arrayProducts = productos.map(a => a.nombre);
-    console.log(arrayProducts);
+    const actualizarCantidadProductos = async () =>{
+        const arrayIdProdcutos = [];
+        let suma = 0;
+        let arregloCantidadElegida = [];
+        for(let i=0; i<pedido.length; i++){
+            const productoPedido = pedido.map(x => x.productos)[i];
+            for(let j=0; j<productos.length; j++){
+                if(productoPedido.includes(productos[j].nombre)){
+                    arregloCantidadElegida.push(pedido.map(x => x.cantidad)[i]);
+                    arrayIdProdcutos.push(productos[j].id);
+                    suma++;
+                }
+            }
+        }
 
-    //other calls
-    var arrayPedidos = pedido.map(x => x.productos.value);
-    console.log(arrayPedidos);
+        for(let k=0; k<suma; k++){
+            try {
+                const dbRef = firebase.db.collection('productos').doc(arrayIdProdcutos[k])
+                const doc = await dbRef.get();
+                const cantidadBase = doc.data().cantidad;
 
-    let result = productos.filter(item => (arrayPedidos.includes(item.nombre)));
-    console.log(result);
+                const cantidadARestar = arregloCantidadElegida[k];
+                let nuevoTotal = cantidadBase - cantidadARestar;
+
+                const update = await dbRef.update({
+                    cantidad: nuevoTotal
+                })
+                
+                } catch (error) {
+                    console.log(error);
+                }  
+        }
+
+    }
 
     const calcularTotal = () => {
         let nuevoTotal = 0;
@@ -85,6 +114,8 @@ const ResumenPedido = () => {
                     text: 'Confirmar',
                     onPress: async () => {
 
+                        const dateNow = moment().format();
+
                         // crear un objeto
                         const pedidoObj = {
                             tiempoentrega: 0,
@@ -93,20 +124,26 @@ const ResumenPedido = () => {
                             pendienteDespacho: false,
                             total: Number(total),
                             orden: pedido, // array
-                            creado: Date.now(),
+                            creado: dateNow,
                             mesa: state.mesa
                         }
 
-                        try {
-                            const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
-                            pedidoRealizado(pedido.id);
+                        if(!pedidoObj.mesa){
+                            Alert.alert("Debe ingresar una mesa");
+                        }else if (pedidoObj.mesa > 25 ){
+                            Alert.alert("Solo existen 25 mesas");
+                        }else{
+                            try {
+                                const pedido = await firebase.db.collection('ordenes').add(pedidoObj);
+                                pedidoRealizado(pedido.id);
 
-                            // redireccionar a progreso
-                            navigation.navigate("InicioMeseros")
-                        } catch (error) {
-                            console.log(error);
+                                actualizarCantidadProductos();
+                                navigation.navigate("InicioMeseros")
+
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }
-
 
                       
                     }
