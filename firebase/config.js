@@ -1,12 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyAUhWYaZ2LeK45CUQZxYIi51nHjvmdcpC8",
-  authDomain: "restaurant-fc4d0.firebaseapp.com",
-  databaseURL: "https://restaurant-fc4d0.firebaseio.com",
-  projectId: "restaurant-fc4d0",
-  storageBucket: "restaurant-fc4d0.appspot.com",
-  messagingSenderId: "850697243805",
-  appId: "1:850697243805:web:3e3bfee9f58a3be1ba5874",
-  measurementId: "G-TEVKTJRDQ9"
+  apiKey: "AIzaSyA8Kh0n8-dl4TvAqp6ovKyqltm41Sz60ko",
+  authDomain: "lacampinalojana-e001a.firebaseapp.com",
+  projectId: "lacampinalojana-e001a",
+  storageBucket: "lacampinalojana-e001a.appspot.com",
+  messagingSenderId: "667512306977",
+  appId: "1:667512306977:web:2524f449d2de7678241260",
+  measurementId: "G-C95NR7TH0J"
 };
 
 
