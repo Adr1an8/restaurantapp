@@ -28,7 +28,7 @@ const ResumenReserva = (props) => {
     // context de pedido
     const { reservaRealizada, mostrarResumen} = useContext(ReservaContext);
 
-     const progresoPedido = () => {
+     const progresoReserva = () => {
          Alert.alert(
              'Revisa tu reserva',
              'Por Favor llegar con tiempo de anticipación a su reserva',
@@ -97,7 +97,7 @@ const ResumenReserva = (props) => {
                         <Text style={globalStyles.botonTexto}>Editar</Text>
                     </Button>
                     <Button
-                        onPress={ () => progresoPedido() }
+                        onPress={ () => progresoReserva() }
                         style={[globalStyles.boton, styles.separadorTexto ]}
                         full
                     >

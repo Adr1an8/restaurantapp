@@ -26,7 +26,7 @@ const EditarOrdenMeseros = (props) => {
     let pedidos = props.route.params.arrayPedido;
     let pagoPedido = props.route.params.ordenPagada;
 
-    const EliminacionCompleta = () => {
+    const CanceladoCompleto = () => {
         Alert.alert(
             'Pago',
             'Confirma que se ha realizado un pago?',
@@ -79,7 +79,7 @@ const EditarOrdenMeseros = (props) => {
                 })}
                  { pagoPedido === false  && (
                      <Button
-                     onPress={ () => EliminacionCompleta() }
+                     onPress={ () => CanceladoCompleto() }
                      full
                      danger
                      style={{marginTop: 20}}

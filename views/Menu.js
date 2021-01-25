@@ -13,7 +13,7 @@ import {
 } from 'native-base';
 import globalStyles from '../styles/global';
 
-import  FirebaseContext from '../context/firebase/firebaseContext';
+import FirebaseContext from '../context/firebase/firebaseContext';
 import PedidoContext from '../context/pedidos/pedidosContext';
 
 
@@ -56,7 +56,7 @@ const Menu = () => {
             <Content style={{ backgroundColor: '#FFF' }}>
                 <List>
                     {menu.map( (platillo, i) => {
-                        const { imagen, nombre, descripcion, categoria, precio, id} = platillo;
+                        const { imagen, nombre, descripcion, categoria, precio, id } = platillo;
                         return (
                             <Fragment key={id}>
                                 {mostrarHeading(categoria, i ) }

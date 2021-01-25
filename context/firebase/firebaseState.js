@@ -38,8 +38,6 @@ const FirebaseState = props => {
             // Ordenar por categoria con lodash
             platillos = _.sortBy(platillos, 'categoria');
 
-            // console.log(platillos)
-
             // Tenemos resultados de la base de datos
             dispatch({
                 type: OBTENER_PRODUCTOS_EXITO,
