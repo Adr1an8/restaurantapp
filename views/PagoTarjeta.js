@@ -56,8 +56,8 @@ const PagoTarjeta = (props) => {
             <View 
             style={[ globalStyles.contenido, { marginTop: 50} ]}>
             <WebView
-                    source={{ uri: "https://0d6288a71451.ngrok.io" }}
-                    injectedJavaScript={`document.getElementById('inject').innerHTML = '<form name="f1" action="/paypal"><input type="hidden" name="source" value="${props.route.params.totalPagar}"/><button type="submit" style="background-color: #000000; color: white; text-align: center; border-radius: 10px; font-size: 16px; width:200px; height: 50px;">PROCEDER AL PAGO</button></form>'`}                  
+                    source={{ uri: "https://us-central1-app-c966b.cloudfunctions.net/app" }}
+                    injectedJavaScript={`document.getElementById('inject').innerHTML = '<form name="f1" action="/app/paypal"><input type="hidden" name="source" value="${props.route.params.totalPagar}"/><button type="submit" style="background-color: #000000; color: white; text-align: center; border-radius: 10px; font-size: 16px; width:200px; height: 50px;">PROCEDER AL PAGO</button></form>'`}                  
                 />
             </View>
             { tiempo === 0 && (
