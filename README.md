@@ -12,4 +12,5 @@ Para creac un proyecto en react se debe ejecutar:
 npx react-native init ( nombre del proyecto )
 
 Para ejecutar este proyecto en android:
+npm install
 npm run android
